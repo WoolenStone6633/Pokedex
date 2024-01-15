@@ -2,6 +2,11 @@ import { Outlet } from "react-router-dom"
 
 export default function PokeEntryLayout() {
     return (
-        <Outlet/>
+        <>
+            <header className="entryHeader">Entry Stuff</header>
+            <main>
+                <Outlet/>
+            </main>
+        </>
     )
 }
