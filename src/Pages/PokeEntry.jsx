@@ -8,9 +8,6 @@ export default function PokeEntry() {
     return (
         <>
             <PokeInfo pokemon={pokeInfo}/>
-            <Link to="/">
-                <button className="backBut">Back</button>
-            </Link>
         </>
     )
 }

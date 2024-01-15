@@ -15,14 +15,14 @@ export default function Home () {
     useEffect(() => {
         // checks to see if the next or back button needs to be displayed
         if (currentOffset <= 0) {
-            document.getElementById("backButton").style.visibility = "hidden"
+            document.getElementById("backBut").style.visibility = "hidden"
         } else {
-            document.getElementById("backButton").style.visibility = "visible"
+            document.getElementById("backBut").style.visibility = "visible"
         }
         if (currentOffset >= pokedexEnd - displayLimit) {
-            document.getElementById("nextButton").style.visibility = "hidden"
+            document.getElementById("nextBut").style.visibility = "hidden"
         } else {
-            document.getElementById("nextButton").style.visibility = "visible"
+            document.getElementById("nextBut").style.visibility = "visible"
         }
         
         fetch(url)
@@ -58,8 +58,8 @@ export default function Home () {
             {pokemon ? pokemon.results.map(poke => {
             return <PokeCard key={poke.name} name={poke.name} imageURL={POKEIMGURL + poke.url.substring(34, poke.url.length-1) + '.png'}/>
             }) : null}
-            <button className="pageNavBut" id="backButton" onClick={prevBut}>Back</button>
-            <button className="pageNavBut" id="nextButton" onClick={nextBut}>Next</button>
+            <button className="pageNavBut" id="backBut" onClick={prevBut}>Back</button>
+            <button className="pageNavBut" id="nextBut" onClick={nextBut}>Next</button>
         </>
     )
 }
