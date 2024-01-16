@@ -13,12 +13,11 @@ export default function Region ({url}) {
         }
 
         if (urlArr != null) {
-            setPokedex(prevPokedex => prevPokedex = null)
+            setPokedex(null)
             Promise.all(urlArr.map(url =>
                 fetch(url)
                     .then(res => res.json())
-                    .then(data => setPokedex(prevPokedex => prevPokedex ? prevPokedex.concat(data.pokemon_entries) : prevPokedex = data.pokemon_entries))
-            ))
+                )).then(json => setPokedex([...json[0].pokemon_entries, ...json[1].pokemon_entries, ...json[2].pokemon_entries]))
         } else {
             fetch(url)
                 .then(res => res.json())
