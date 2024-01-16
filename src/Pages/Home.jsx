@@ -36,13 +36,15 @@ export default function Home () {
     }
 
     const prevBut = () => {
-        currentOffset > 0 && limit == 20 ? (
-            currentOffset -= displayLimit, 
+        currentOffset >= displayLimit && limit == 20 ? (
+            currentOffset -= displayLimit,
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
-        ) 
-        : (
-            currentOffset -= displayLimit, 
-            limit = displayLimit, 
+        ) : currentOffset < displayLimit && currentOffset > 0 && limit == 20 ? (
+            currentOffset = 0,
+            setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
+        ) : (
+            currentOffset -= displayLimit,
+            limit = displayLimit,
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
     }
