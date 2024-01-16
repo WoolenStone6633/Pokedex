@@ -1,13 +1,13 @@
-import { Outlet } from "react-router-dom"
-import { useLoaderData, Link } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export default function PokeEntryLayout() {
+    const navigate = useNavigate()
+    
     return (
         <>
             <header className="entryHeader">
-                <Link to="/">
-                    <button className="retBut">Back</button>
-                </Link>
+                <button className="retBut" onClick={() => navigate(-1)}>Back</button>
             </header>
             <main>
                 <Outlet/>

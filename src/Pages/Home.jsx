@@ -8,7 +8,6 @@ let limit = displayLimit
 export default function Home () {
     const pokedexEnd = 1025 // (pokemon.count - 297) will need to update this value when more pokemon are added
     const POKEBASEURL = 'https://pokeapi.co/api/v2/pokemon'
-    const POKEIMGURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
     const [pokemon, setPokemon] = useState(null)
     const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${limit}`)
 
@@ -51,7 +50,7 @@ export default function Home () {
     return (
         <>
             {pokemon ? pokemon.results.map(poke => {
-            return <PokeCard key={poke.name} name={poke.name} imageURL={POKEIMGURL + poke.url.substring(34, poke.url.length-1) + '.png'}/>
+                return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(34, poke.url.length-1) + '.png'}/>
             }) : null}
             <button className="pageNavBut" id="backBut" onClick={prevBut}>Back</button>
             <button className="pageNavBut" id="nextBut" onClick={nextBut}>Next</button>

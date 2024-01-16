@@ -2,19 +2,21 @@ import { useState, useEffect } from "react"
 import { useLoaderData } from "react-router-dom"
 import RegionList from "../Components/RegionList"
 
+let globRegion = "kanto"
+
 export default function Region () {
     const regions = useLoaderData()
     const url = 'https://pokeapi.co/api/v2/region'
-    const [region, setRegion] = useState('kanto')
-    const [pokedexURL, setPokedexURL] = useState(`https://pokeapi.co/api/v2/pokedex/2`)
+    const [region, setRegion] = useState(globRegion)
+    const [pokedexURL, setPokedexURL] = useState(null)
     
     useEffect(() => {
         fetch(`${url}/${region}`)
             .then(res => res.json())
-            .then(data => loadReg(data))
+            .then(data => getPokedexURL(data))
     }, [region])
 
-    const loadReg = reg => {
+    const getPokedexURL = reg => {
         setPokedexURL("")
         for (let i = 0; i < reg.pokedexes.length; i++) {
             if (reg.pokedexes[i].name == reg.name && reg.name != "hoenn" ) {
@@ -27,15 +29,15 @@ export default function Region () {
                 setPokedexURL(reg.pokedexes[i].url)
                 break
             } else if (reg.pokedexes[i].name.includes("kalos")) {
-                setPokedexURL(prevPokedexURL => `${prevPokedexURL}, ${reg.pokedexes[i].url}`)
+                setPokedexURL(prevPokedexURL => `${prevPokedexURL},${reg.pokedexes[i].url}`)
             }
         }
     }
     
     return (
         <>
-            {regions.results.map(region => <button key={region.name} onClick={() => setRegion(region.name)}> {region.name} </button>)}
-            <RegionList url={pokedexURL}/>
+            {regions.results.map(region => <button key={region.name} onClick={() => {globRegion = region.name, setRegion(region.name)}}> {region.name} </button>)}
+            {pokedexURL && <RegionList url={pokedexURL}/>}
         </>
     )
 }
