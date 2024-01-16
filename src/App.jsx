@@ -2,18 +2,22 @@ import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } 
 
 // Pages
 import Home from "./Pages/Home"
-import PokeEntry, { pokeLoader } from "./Pages/PokeEntry"
+import Region from "./Pages/Region"
+import Generation from "./Pages/Generation"
+import PokeEntry, { pokeLoader} from "./Pages/PokeEntry"
 
 // Layouts
 import MainLayout from "./Layouts/MainLayout"
-import HomeLayout from "./Layouts/HomeLayout"
+import PokeListLayout from "./Layouts/PokeListLayout"
 import PokeEntryLayout from "./Layouts/PokeEntryLayout"
 
 const router = createBrowserRouter (
   createRoutesFromElements (
     <Route path="/" element={<MainLayout/>}>
-      <Route element={<HomeLayout/>}>
+      <Route element={<PokeListLayout/>}>
         <Route index element={<Home/>}/>
+        <Route path="region" element={<Region/>}/>
+        <Route path="generation" element={<Generation/>}/>
       </Route>
     
       <Route path="pokeEntry" element={<PokeEntryLayout/>}>

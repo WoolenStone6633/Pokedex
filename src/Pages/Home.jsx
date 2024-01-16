@@ -2,28 +2,23 @@ import { useState, useEffect, useRef } from "react"
 import PokeCard from "../Components/PokeCard"
 
 const displayLimit = 20
-var currentOffset = 0
-var limit = displayLimit
+let currentOffset = 0
+let limit = displayLimit
 
 export default function Home () {
     const pokedexEnd = 1025 // (pokemon.count - 297) will need to update this value when more pokemon are added
     const POKEBASEURL = 'https://pokeapi.co/api/v2/pokemon'
     const POKEIMGURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
     const [pokemon, setPokemon] = useState(null)
-    const [url, setURL] = useState(`https://pokeapi.co/api/v2/pokemon?offset=${currentOffset}&limit=${limit}`)
+    const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${limit}`)
 
     useEffect(() => {
         // checks to see if the next or back button needs to be displayed
-        if (currentOffset <= 0) {
-            document.getElementById("backBut").style.visibility = "hidden"
-        } else {
-            document.getElementById("backBut").style.visibility = "visible"
-        }
-        if (currentOffset >= pokedexEnd - displayLimit) {
-            document.getElementById("nextBut").style.visibility = "hidden"
-        } else {
-            document.getElementById("nextBut").style.visibility = "visible"
-        }
+        currentOffset <= 0 ? document.getElementById("backBut").style.visibility = "hidden"
+        : document.getElementById("backBut").style.visibility = "visible"
+        
+        currentOffset >= pokedexEnd - displayLimit ? document.getElementById("nextBut").style.visibility = "hidden"
+        : document.getElementById("nextBut").style.visibility = "visible"
         
         fetch(url)
             .then(res => res.json())

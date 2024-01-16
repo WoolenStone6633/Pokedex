@@ -8,7 +8,7 @@ export default function PokeEntry() {
     const [pokeInfo, pokeSpecies] = useLoaderData()
 
     const engIndex = () => {
-        var index = 0
+        let index = 0
         while (pokeSpecies.flavor_text_entries && pokeSpecies.flavor_text_entries[index].language.name != "en") {
             index++
         }
@@ -28,7 +28,7 @@ export default function PokeEntry() {
             <section className="varients">
                 Variations:
                 {(pokeSpecies && pokeSpecies.varieties.length > 1) ? 
-                pokeSpecies.varieties.map(varient => <PokeVar key={varient.pokemon.name} origName={pokeInfo.name} varientURL={varient.pokemon.url}/>) : " None"}
+                    pokeSpecies.varieties.map(varient => <PokeVar key={varient.pokemon.name} origName={pokeInfo.name} varientURL={varient.pokemon.url}/>) : " None"}
             </section>
         </>
     )
@@ -43,7 +43,7 @@ export const pokeLoader = async ({ params }) => {
         fetch(`${URL}/${pokemon}`),
         fetch(`${URL}-species/${pokemon}`)
     ])
-    
+
     const pokeInfo = await res1.json()
     const pokeSpec = await res2.json()
 
