@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import PokeCard from "../Components/PokeCard"
 
 const displayLimit = 20
