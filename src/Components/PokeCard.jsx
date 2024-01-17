@@ -9,7 +9,7 @@ export default function PokeCard({name, pokeNum}) {
         <Link to={`../${pokePage}`}>
             <div className="pokeCard">
                 <img src={POKEIMGURL + pokeNum + '.png'}></img>
-                <p className="pokeName">{name.replaceAll('-', ' ')}</p>
+                <p className="pokeName">{name.includes('ho-oh') ? name : name.split('-')[0]}</p>
             </div>
         </Link>
     )

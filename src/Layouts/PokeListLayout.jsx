@@ -19,7 +19,7 @@ export default function PokeListLayout() {
     return (
         <>
             <header className="homeHeader">
-                <p>Pokedex</p>
+                <p>Pokedex</p> {/*When clicked, have user go back to fresh application like hitting the refresh button*/}
                 <button className="sortButton" onClick={sortClicked}>Sort by</button> {/* All, Region, Generation */}
                 <NavLink to={"/"}><button className="navSortBut" id="allBut" onClick={sortClicked} hidden>All</button></NavLink>
                 <NavLink to={"region"}><button className="navSortBut" id="regBut" onClick={sortClicked} hidden>Region</button></NavLink>
