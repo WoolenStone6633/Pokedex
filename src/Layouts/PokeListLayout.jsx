@@ -16,10 +16,15 @@ export default function PokeListLayout() {
         showing = !showing
     }
 
+    //Reloads entire page
+    const reset = () => {
+        <App/>
+    }
+
     return (
         <>
             <header className="homeHeader">
-                <Link to={"/"}>Pokedex</Link> {/*When clicked, have user go back to fresh application like hitting the refresh button*/}
+                <Link to={"/"} onClick={reset}>Pokedex</Link> {/*When clicked, have user go back to fresh application like hitting the refresh button*/}
                 <button className="sortButton" onClick={sortClicked}>Sort by</button> {/* All, Region, Generation */}
                 <NavLink to={"/"}><button className="navSortBut" id="allBut" onClick={sortClicked} hidden>All</button></NavLink>
                 <NavLink to={"region"}><button className="navSortBut" id="regBut" onClick={sortClicked} hidden>Region</button></NavLink>
