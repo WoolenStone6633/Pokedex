@@ -8,13 +8,11 @@ let endDex
 let limit
 let currentURL
 
-export default function RegionList ({url}) {
+export default function GenerationList ({url}) {
     const [pokedex, setPokedex] = useState(null)
     const [, render] = useState(null)
-    
-    useEffect(() => {
-        let urlArr = null
 
+    useEffect(() => {
         if (url != currentURL) {
             start = 0
             end = start + displayLimit
@@ -22,21 +20,10 @@ export default function RegionList ({url}) {
             currentURL = url
         }
 
-        if (url.includes("12" && "13" && "14")) {
-            urlArr = url.split(',').splice(1, 3)
-        }
-
-        if (urlArr != null) {
-            setPokedex(null)
-            Promise.all(urlArr.map(url =>
-                fetch(url)
-                    .then(res => res.json())
-                )).then(json => setPokedex([...json[0].pokemon_entries, ...json[1].pokemon_entries, ...json[2].pokemon_entries]))
-        } else {
-            fetch(url)
-                .then(res => res.json())
-                .then(data => setPokedex(data.pokemon_entries))
-        }
+        
+        fetch(url)
+            .then(res => res.json())
+            .then(data => setPokedex(data.pokemon_species))
     }, [url])
 
     useEffect(() => {
@@ -89,7 +76,7 @@ export default function RegionList ({url}) {
                 {pokedex ? pokedex.map((poke, index) => {
                     return (
                         index >= start && index < end &&
-                        <PokeCard key={poke.pokemon_species.name} name={poke.pokemon_species.name} pokeNum={poke.pokemon_species.url.substring(42, poke.pokemon_species.url.length-1)}/>
+                        <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(42, poke.url.length - 1)}/>
                 )}) : null}
             </div>
             <button className="pageNavBut" id="backBut" onClick={prevBut}>Back</button>

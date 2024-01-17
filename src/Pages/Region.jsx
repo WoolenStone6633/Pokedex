@@ -5,7 +5,7 @@ import RegionList from "../Components/RegionList"
 let globRegion = "kanto"
 
 export default function Region () {
-    const regions = useLoaderData()
+    const regions = useLoaderData().results
     const url = 'https://pokeapi.co/api/v2/region'
     const [region, setRegion] = useState(globRegion)
     const [pokedexURL, setPokedexURL] = useState(null)
@@ -36,7 +36,11 @@ export default function Region () {
     
     return (
         <>
-            <nav className="regNav">{regions.results.map(region => <button key={region.name} className={region.name == globRegion ? "activeRegBut" : "regBut"} onClick={() => {globRegion = region.name, setRegion(region.name)}}> {region.name} </button>)}</nav>
+            <nav className="regNav">{regions.map(region => 
+                <button key={region.name} className={region.name == globRegion ? "activeRegBut" : "regBut"} onClick={() => {globRegion = region.name, setRegion(region.name)}}>
+                    {region.name}
+                </button>)}
+            </nav>
             {pokedexURL && <RegionList url={pokedexURL}/>}
         </>
     )

@@ -14,6 +14,11 @@
     color: white;
 }
 
+.activeGenBut {
+    background-color: gray;
+    color: white;
+}
+
 header a {
     display: inline-block;
 }

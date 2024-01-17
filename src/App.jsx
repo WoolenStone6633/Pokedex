@@ -3,7 +3,7 @@ import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } 
 // Pages
 import Home from "./Pages/Home"
 import Region, {regionLoader} from "./Pages/Region"
-import Generation from "./Pages/Generation"
+import Generation, {generationLoader} from "./Pages/Generation"
 import PokeEntry, { pokeLoader} from "./Pages/PokeEntry"
 
 // Layouts
@@ -17,7 +17,7 @@ const router = createBrowserRouter (
       <Route element={<PokeListLayout/>}>
         <Route index element={<Home/>}/>
         <Route path="region" element={<Region/>} loader={regionLoader}/>
-        <Route path="generation" element={<Generation/>}/>
+        <Route path="generation" element={<Generation/>} loader={generationLoader}/>
       </Route>
     
       <Route path="pokeEntry" element={<PokeEntryLayout/>}>

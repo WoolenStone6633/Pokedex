@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink, Link, Outlet } from "react-router-dom"
 
 export default function PokeListLayout() {
     let showing = false
@@ -19,7 +19,7 @@ export default function PokeListLayout() {
     return (
         <>
             <header className="homeHeader">
-                <p>Pokedex</p> {/*When clicked, have user go back to fresh application like hitting the refresh button*/}
+                <Link to={"/"}>Pokedex</Link> {/*When clicked, have user go back to fresh application like hitting the refresh button*/}
                 <button className="sortButton" onClick={sortClicked}>Sort by</button> {/* All, Region, Generation */}
                 <NavLink to={"/"}><button className="navSortBut" id="allBut" onClick={sortClicked} hidden>All</button></NavLink>
                 <NavLink to={"region"}><button className="navSortBut" id="regBut" onClick={sortClicked} hidden>Region</button></NavLink>
