@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 
 //Takes the pokemon's name and image url and then returns a card displaying the pokemon name and image
-export default function PokeCard({...props}) {
+export default function PokeCard({name, pokeNum}) {
     const POKEIMGURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
-    const pokePage = `pokeEntry/${props.name}`
+    const pokePage = `pokeEntry/${pokeNum}`
     
     return (
         <Link to={`../${pokePage}`}>
             <div className="pokeCard">
-                <img src={POKEIMGURL + props.pokeNum}></img>
-                <p className="pokeName">{props.name.replaceAll('-', ' ')}</p>
+                <img src={POKEIMGURL + pokeNum + '.png'}></img>
+                <p className="pokeName">{name.replaceAll('-', ' ')}</p>
             </div>
         </Link>
     )

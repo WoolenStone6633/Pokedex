@@ -36,10 +36,10 @@ export default function Home () {
     }
 
     const prevBut = () => {
-        currentOffset >= displayLimit && limit == 20 ? (
+        currentOffset >= displayLimit && limit == displayLimit ? (
             currentOffset -= displayLimit,
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
-        ) : currentOffset < displayLimit && currentOffset > 0 && limit == 20 ? (
+        ) : currentOffset < displayLimit && currentOffset > 0 && limit == displayLimit ? (
             currentOffset = 0,
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
         ) : (
@@ -52,7 +52,7 @@ export default function Home () {
     return (
         <>
             {pokemon ? pokemon.results.map(poke => {
-                return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(34, poke.url.length-1) + '.png'}/>
+                return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(34, poke.url.length-1)}/>
             }) : null}
             <button className="pageNavBut" id="backBut" onClick={prevBut}>Back</button>
             <button className="pageNavBut" id="nextBut" onClick={nextBut}>Next</button>
