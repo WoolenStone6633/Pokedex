@@ -85,11 +85,13 @@ export default function Region ({url}) {
     
     return (
         <>
-            {pokedex ? pokedex.map((poke, index) => {
-                return (
-                    index >= start && index < end &&
-                    <PokeCard key={poke.pokemon_species.name} name={poke.pokemon_species.name} pokeNum={poke.pokemon_species.url.substring(42, poke.pokemon_species.url.length-1)}/>
-            )}) : null}
+            <div>
+                {pokedex ? pokedex.map((poke, index) => {
+                    return (
+                        index >= start && index < end &&
+                        <PokeCard key={poke.pokemon_species.name} name={poke.pokemon_species.name} pokeNum={poke.pokemon_species.url.substring(42, poke.pokemon_species.url.length-1)}/>
+                )}) : null}
+            </div>
             <button className="pageNavBut" id="backBut" onClick={prevBut}>Back</button>
             <button className="pageNavBut" id="nextBut" onClick={nextBut}>Next</button>
         </>

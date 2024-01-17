@@ -36,7 +36,7 @@ export default function Region () {
     
     return (
         <>
-            {regions.results.map(region => <button key={region.name} onClick={() => {globRegion = region.name, setRegion(region.name)}}> {region.name} </button>)}
+            <nav className="regNav">{regions.results.map(region => <button key={region.name} className={region.name == globRegion ? "activeRegBut" : "regBut"} onClick={() => {globRegion = region.name, setRegion(region.name)}}> {region.name} </button>)}</nav>
             {pokedexURL && <RegionList url={pokedexURL}/>}
         </>
     )

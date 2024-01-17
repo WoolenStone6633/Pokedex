@@ -21,9 +21,9 @@ export default function PokeListLayout() {
             <header className="homeHeader">
                 <p>Pokedex</p>
                 <button className="sortButton" onClick={sortClicked}>Sort by</button> {/* All, Region, Generation */}
-                <NavLink to={"/"}><button className="navSortBut" id="allBut" hidden>All</button></NavLink>
-                <NavLink to={"region"}><button className="navSortBut" id="regBut" hidden>Region</button></NavLink>
-                <NavLink to={"generation"}><button className="navSortBut" id="genBut" hidden>Generation</button></NavLink>
+                <NavLink to={"/"}><button className="navSortBut" id="allBut" onClick={sortClicked} hidden>All</button></NavLink>
+                <NavLink to={"region"}><button className="navSortBut" id="regBut" onClick={sortClicked} hidden>Region</button></NavLink>
+                <NavLink to={"generation"}><button className="navSortBut" id="genBut" onClick={sortClicked} hidden>Generation</button></NavLink>
             </header>
             <main>
                 <Outlet/>
