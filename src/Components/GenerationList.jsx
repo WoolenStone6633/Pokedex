@@ -23,8 +23,12 @@ export default function GenerationList ({url}) {
         
         fetch(url)
             .then(res => res.json())
-            .then(data => setPokedex(data.pokemon_species))
+            .then(data => setPokedex(data.pokemon_species.sort(compare)))
     }, [url])
+
+    const compare = (a, b) => {
+        return a.url.substring(42, a.url.length - 1) - b.url.substring(42, b.url.length - 1)
+    }
 
     useEffect(() => {
         pokedex ? (
