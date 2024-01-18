@@ -9,6 +9,98 @@
     padding: 0;
 }
 
+body {
+    overflow-x: hidden;
+    padding-top: 2.3rem;
+}
+
+/*header*/
+header {
+    display: block;
+    position: fixed;
+    background-color: red;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+    top: 0;
+    width: 100%;
+    font-size: 1.7rem;
+    z-index: 999;
+}
+
+header div {
+    display:inline;
+    position: relative; 
+    float: right;       
+}
+
+
+.pokeLink{
+    position: fixed;
+    color:rgb(30, 53, 156);
+    border-right-style: solid;
+    border-right-color: black;
+    border-right-width: 2px;
+    padding: .17em;
+    padding-inline: .3em;
+    font-size: .9em;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+}
+
+header p {
+    display: inline-block;
+    color: rgb(230, 230, 230);
+    border-left-style: solid;
+    border-left-color: black;
+    border-left-width: 2px;
+    padding: .2em;
+    padding-inline: .3em;
+    font-size: .8em;
+    font-family: Arial, sans-serif;
+}
+
+.navSortBut {
+    border-style: none;
+    background-color: lightgray;
+    border-inline-style: solid;
+    border-inline-width: 2px;
+    padding: .3em;
+    padding-top: .4em;
+    padding-inline: .7em;
+    margin-right: -.1em;
+    font-size: .7em;
+    cursor: pointer;
+}
+
+header a.active {
+    background-color: white;
+}
+
+/*main*/
+main {
+    
+}
+
+main div {
+    display: grid;
+    grid-template-rows: (repeat(4, auto));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+main div a {
+    display: inline-block;
+}
+
+/*footer*/
+footer {
+    background-color: red;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: black;
+}
+
+/*misc*/
 .activeRegBut {
     background-color: gray;
     color: white;
@@ -17,12 +109,4 @@
 .activeGenBut {
     background-color: gray;
     color: white;
-}
-
-header a {
-    display: inline-block;
-}
-
-header a.active {
-    display: none;
 }

@@ -2,19 +2,6 @@ import { NavLink, Link, Outlet } from "react-router-dom"
 
 export default function PokeListLayout() {
     let showing = false
-    
-    const sortClicked = () => {
-        !showing ? (
-            document.getElementById("allBut").hidden = false,
-            document.getElementById("regBut").hidden = false,
-            document.getElementById("genBut").hidden = false
-        ) : (
-            document.getElementById("allBut").hidden = true,
-            document.getElementById("regBut").hidden = true,
-            document.getElementById("genBut").hidden = true
-        )
-        showing = !showing
-    }
 
     //Reloads entire page
     const reset = () => {
@@ -23,12 +10,14 @@ export default function PokeListLayout() {
 
     return (
         <>
-            <header className="homeHeader">
-                <Link to={"/"} onClick={reset}>Pokedex</Link> {/*When clicked, have user go back to fresh application like hitting the refresh button*/}
-                <button className="sortButton" onClick={sortClicked}>Sort by</button> {/* All, Region, Generation */}
-                <NavLink to={"/"}><button className="navSortBut" id="allBut" onClick={sortClicked} hidden>All</button></NavLink>
-                <NavLink to={"region"}><button className="navSortBut" id="regBut" onClick={sortClicked} hidden>Region</button></NavLink>
-                <NavLink to={"generation"}><button className="navSortBut" id="genBut" onClick={sortClicked} hidden>Generation</button></NavLink>
+            <header>
+                <Link to={"/"} className="pokeLink" onClick={reset}>Pokedex</Link>
+                <div>
+                    <p>Sort by:</p>
+                    <NavLink to={"/"}><button className="navSortBut" id="allBut">All</button></NavLink>
+                    <NavLink to={"region"}><button className="navSortBut" id="regBut">Region</button></NavLink>
+                    <NavLink to={"generation"}><button className="navSortBut" id="genBut">Generation</button></NavLink>
+                </div>
             </header>
             <main>
                 <Outlet/>
