@@ -51,13 +51,17 @@ export default function Home () {
     
     return (
         <>
-            <div>
-                {pokemon ? pokemon.results.map(poke => {
-                    return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(34, poke.url.length-1)}/>
-                }) : null}
+            <div className="wrapper-main">
+                <div className="cards">
+                    {pokemon ? pokemon.results.map(poke => {
+                        return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(34, poke.url.length-1)}/>
+                    }) : null}
+                </div>
             </div>
-            <button className="pageNavBut" id="backBut" onClick={prevBut}>Back</button>
-            <button className="pageNavBut" id="nextBut" onClick={nextBut}>Next</button>
+            <div className="pageNavBut">
+                <button id="backBut" onClick={prevBut}>Back</button>
+                <button id="nextBut" onClick={nextBut}>Next</button>
+            </div>
         </>
     )
 }

@@ -5,7 +5,9 @@ export default function MainLayout() {
         <>
             <Outlet/>
             <footer>
-                <p className="footer">Powered by <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokeAPI</a></p>
+                <p>Powered by&nbsp;
+                    <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokeAPI</a>
+                </p>
             </footer>
         </>
     )

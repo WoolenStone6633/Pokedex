@@ -1,0 +1,22 @@
+.pokeCard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: .5em;
+    padding-inline: 3.8em;
+    text-decoration: none;
+}
+
+.pokeCard img {
+    
+}
+
+.pokeCard p {
+    color: black;
+    padding-bottom: .1em;
+    text-transform: capitalize;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
