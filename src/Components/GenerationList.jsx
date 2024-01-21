@@ -84,9 +84,11 @@ export default function GenerationList ({url}) {
                             <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(42, poke.url.length - 1)}/>
                     )}) : null}
                 </div>
+                <div className="pageNavBut">
+                    <button id="backBut" onClick={prevBut}>Back</button>
+                    <button id="nextBut" onClick={nextBut}>Next</button>
+                </div>
             </div>
-            <button className="pageNavBut" id="backBut" onClick={prevBut}>Back</button>
-            <button className="pageNavBut" id="nextBut" onClick={nextBut}>Next</button>
         </>
     )
 }

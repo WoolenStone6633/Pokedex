@@ -57,10 +57,11 @@ export default function Home () {
                         return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(34, poke.url.length-1)}/>
                     }) : null}
                 </div>
-            </div>
-            <div className="pageNavBut">
-                <button id="backBut" onClick={prevBut}>Back</button>
-                <button id="nextBut" onClick={nextBut}>Next</button>
+                <div className="pageNavBut">
+                    <button id="backBut" onClick={prevBut}>Back</button>
+                    <p>page {currentOffset / displayLimit + 1} out of {Math.ceil(pokedexEnd / displayLimit)}</p>
+                    <button id="nextBut" onClick={nextBut}>Next</button>
+                </div>
             </div>
         </>
     )

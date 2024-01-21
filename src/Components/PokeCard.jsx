@@ -9,6 +9,7 @@ export default function PokeCard({name, pokeNum}) {
     return (
         <Link to={`../${pokePage}`} className={css.pokeCard}>
             <img src={POKEIMGURL + pokeNum + '.png'}></img>
+            {/* Fix all names with dashes like the parasdox pokemon */}
             <p>{name.includes('ho-oh') ? name : name.split('-')[0]}</p>
         </Link>
     )

@@ -87,20 +87,30 @@ main {
 
 .wrapper-main {
     display: grid;
-    grid-template-columns: 1fr minmax(135px, 540px) 1fr
+    grid-template-columns: 1fr minmax(135px, 540px) 1fr;
+    grid-template-rows: auto auto;
+    margin-bottom: 20px;
 }
 
 .cards {
     grid-area: 1/2/1/2;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(125px, 125px));
+    grid-template-columns: repeat(auto-fit, 125px);
+    grid-template-rows: repeat(auto-fit, 121px);
     grid-gap: .7em .8em;
     justify-content: center;
 }
 
 .pageNavBut {
+    grid-area: 2/2/2/2;
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
+}
+
+.pageNavBut button {
+    font-size: 1.5em;
+    cursor: pointer;
 }
 
 /*footer*/
@@ -111,7 +121,7 @@ footer {
     border-top-width: 2px;
     border-top-color: black;
     bottom: 0px;
-    width: 100%
+    width: 100%;
 }
 
 footer p {

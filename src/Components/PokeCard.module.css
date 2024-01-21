@@ -10,13 +10,15 @@
     text-decoration: none;
 }
 
-.pokeCard img {
-    
-}
-
 .pokeCard p {
     color: black;
-    padding-bottom: .1em;
-    text-transform: capitalize;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    padding-bottom: .2em;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    white-space: nowrap;
 }
+
+.pokeCard p::first-letter {
+    text-transform: uppercase;
+}
+
+/* Style the page number thing */
