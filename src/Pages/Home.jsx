@@ -7,7 +7,7 @@ let limit = displayLimit
 
 export default function Home () {
     const pokedexEnd = 1025 // (pokemon.count - 297) will need to update this value when more pokemon are added
-    const POKEBASEURL = 'https://pokeapi.co/api/v2/pokemon'
+    const POKEBASEURL = 'https://pokeapi.co/api/v2/pokemon-species'
     const [pokemon, setPokemon] = useState(null)
     const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${limit}`)
 
@@ -54,12 +54,17 @@ export default function Home () {
             <div className="wrapper-main">
                 <div className="cards">
                     {pokemon ? pokemon.results.map(poke => {
-                        return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(34, poke.url.length-1)}/>
+                        return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(42, poke.url.length-1)}/>
                     }) : null}
                 </div>
-                <div className="pageNavBut">
+                <div className="pageNav">
                     <button id="backBut" onClick={prevBut}>Back</button>
-                    <p>page {currentOffset / displayLimit + 1} out of {Math.ceil(pokedexEnd / displayLimit)}</p>
+                    <p>page&#8198;
+                        <button className="currentPageNum" onClick={() => console.log("clicked")}>
+                            {Math.floor(currentOffset / displayLimit) + 1} 
+                        </button>
+                        &#8198;out of {Math.ceil(pokedexEnd / displayLimit)}
+                    </p>
                     <button id="nextBut" onClick={nextBut}>Next</button>
                 </div>
             </div>

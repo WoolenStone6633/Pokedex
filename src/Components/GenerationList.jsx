@@ -10,6 +10,7 @@ let currentURL
 
 export default function GenerationList ({url}) {
     const [pokedex, setPokedex] = useState(null)
+    const [pokedexEnd, setPokedexEnd] = useState(null)
     const [, render] = useState(null)
 
     useEffect(() => {
@@ -23,7 +24,7 @@ export default function GenerationList ({url}) {
         
         fetch(url)
             .then(res => res.json())
-            .then(data => setPokedex(data.pokemon_species.sort(compare)))
+            .then(data => {setPokedex(data.pokemon_species.sort(compare)), setPokedexEnd(data.pokemon_species.length)})
     }, [url])
 
     const compare = (a, b) => {
@@ -84,8 +85,9 @@ export default function GenerationList ({url}) {
                             <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(42, poke.url.length - 1)}/>
                     )}) : null}
                 </div>
-                <div className="pageNavBut">
+                <div className="pageNav">
                     <button id="backBut" onClick={prevBut}>Back</button>
+                    <p>page {Math.floor(start / displayLimit) + 1} out of {Math.ceil(pokedexEnd / displayLimit)}</p>
                     <button id="nextBut" onClick={nextBut}>Next</button>
                 </div>
             </div>

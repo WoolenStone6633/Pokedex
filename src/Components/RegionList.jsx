@@ -10,6 +10,7 @@ let currentURL
 
 export default function RegionList ({url}) {
     const [pokedex, setPokedex] = useState(null)
+    const [pokedexEnd, setPokedexEnd] = useState(null)
     const [, render] = useState(null)
     
     useEffect(() => {
@@ -31,11 +32,11 @@ export default function RegionList ({url}) {
             Promise.all(urlArr.map(url =>
                 fetch(url)
                     .then(res => res.json())
-                )).then(json => setPokedex([...json[0].pokemon_entries, ...json[1].pokemon_entries, ...json[2].pokemon_entries]))
+                )).then(json => {setPokedex([...json[0].pokemon_entries, ...json[1].pokemon_entries, ...json[2].pokemon_entries]), setPokedexEnd(json[0].pokemon_entries.length + json[1].pokemon_entries.length + json[2].pokemon_entries.length)})
         } else {
             fetch(url)
                 .then(res => res.json())
-                .then(data => setPokedex(data.pokemon_entries))
+                .then(data => {setPokedex(data.pokemon_entries), setPokedexEnd(data.pokemon_entries.length)})
         }
     }, [url])
 
@@ -93,8 +94,9 @@ export default function RegionList ({url}) {
                             <PokeCard key={poke.pokemon_species.name} name={poke.pokemon_species.name} pokeNum={poke.pokemon_species.url.substring(42, poke.pokemon_species.url.length-1)}/>
                     )}) : null}
                 </div>
-                <div className="pageNavBut">
+                <div className="pageNav">
                     <button id="backBut" onClick={prevBut}>Back</button>
+                    <p>page {Math.floor(start / displayLimit) + 1} out of {Math.ceil(pokedexEnd / displayLimit)}</p>
                     <button id="nextBut" onClick={nextBut}>Next</button>
                 </div>
             </div>

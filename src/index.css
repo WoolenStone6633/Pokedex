@@ -101,15 +101,29 @@ main {
     justify-content: center;
 }
 
-.pageNavBut {
+.pageNav {
     grid-area: 2/2/2/2;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
 
-.pageNavBut button {
+#backBut, #nextBut {
     font-size: 1.5em;
+    cursor: pointer;
+}
+
+.pageNav p {
+    font-size: 1.2em;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.currentPageNum {
+    border: none;
+    font-size: 1em;
+    background-color: transparent;
+    text-decoration: underline;
     cursor: pointer;
 }
 
