@@ -10,6 +10,8 @@ export default function Home () {
     const POKEBASEURL = 'https://pokeapi.co/api/v2/pokemon-species'
     const [pokemon, setPokemon] = useState(null)
     const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${limit}`)
+    const lastPage = Math.ceil(pokedexEnd / displayLimit)
+    let currentPage = Math.floor(currentOffset / displayLimit) + 1
 
     useEffect(() => {
         // checks to see if the next or back button needs to be displayed
@@ -61,9 +63,9 @@ export default function Home () {
                     <button id="backBut" onClick={prevBut}>Back</button>
                     <p>page&#8198;
                         <button className="currentPageNum" onClick={() => console.log("clicked")}>
-                            {Math.floor(currentOffset / displayLimit) + 1} 
+                            {currentPage}
                         </button>
-                        &#8198;out of {Math.ceil(pokedexEnd / displayLimit)}
+                        &#8198;out of {lastPage}
                     </p>
                     <button id="nextBut" onClick={nextBut}>Next</button>
                 </div>
