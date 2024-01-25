@@ -10,6 +10,10 @@ export default function Home () {
     const POKEBASEURL = 'https://pokeapi.co/api/v2/pokemon-species'
     const [pokemon, setPokemon] = useState(null)
     const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${limit}`)
+    const lastPage = Math.ceil(pokedexEnd / displayLimit)
+    let currentPage = Math.floor(currentOffset / displayLimit) + 1
+    let pageNumShowing = true
+    let currentPageNum = currentPage
 
     useEffect(() => {
         // checks to see if the next or back button needs to be displayed
@@ -48,6 +52,31 @@ export default function Home () {
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
     }
+
+    const pageNum = () => {
+        pageNumShowing ? currentPageNum = <input onKeyDown={inputChecker}/> : currentPageNum = currentPage
+        pageNumShowing = !pageNumShowing
+        console.log(currentPageNum)
+    }
+
+    const inputChecker = e => {
+        (
+            (e.keyCode < 48 || e.keyCode > 57) && e.keyCode != 8 
+            || e.target.value * Math.pow(10, e.target.value.length) + (e.key * 1) > 52 || e.target.value * Math.pow(10, e.target.value.length) + (e.key * 1) == 0
+        )
+        && e.preventDefault()
+
+        e.keyCode == 13 && pageLoader(e.target.value - 1)
+
+        e.keyCode == 27 && currentPage
+    }
+
+    const pageLoader = offset => {
+        if (offset >= 1 && offset <= lastPage) {
+            currentOffset = offset * displayLimit
+            setURL(`${POKEBASEURL}?offset=${currentOffset}&limit=${displayLimit}`)
+        }
+    }
     
     return (
         <>
@@ -60,10 +89,10 @@ export default function Home () {
                 <div className="pageNav">
                     <button id="backBut" onClick={prevBut}>Back</button>
                     <p>page&#8198;
-                        <button className="currentPageNum" onClick={() => console.log("clicked")}>
-                            {Math.floor(currentOffset / displayLimit) + 1} 
+                        <button className="currentPageNum" onClick={pageNum}>
+                            {currentPageNum}
                         </button>
-                        &#8198;out of {Math.ceil(pokedexEnd / displayLimit)}
+                        &#8198;out of {lastPage}
                     </p>
                     <button id="nextBut" onClick={nextBut}>Next</button>
                 </div>
