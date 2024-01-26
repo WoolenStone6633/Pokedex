@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 import PokeCard from "../Components/PokeCard"
 
-const displayLimit = 20
+const pokeCardHeight = 131
+let displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
 let currentOffset = 0
 let limit = displayLimit
 
@@ -25,6 +26,23 @@ export default function Home () {
             .then(res => res.json())
             .then(data => setPokemon(data))
     }, [url])
+
+    useEffect(() => {
+        console.log('displayLimit')
+        setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
+    }, [displayLimit])
+
+    useEffect(() => {
+        function handleResize () {
+            displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
+        }
+
+        window.addEventListener("resize", handleResize)
+
+        handleResize()
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     const nextBut = () => {
         (currentOffset - (pokedexEnd - displayLimit * 2)) > 0 && (
@@ -53,6 +71,7 @@ export default function Home () {
     
     return (
         <>
+            {/* {console.log((Math.floor(window.innerHeight / 131) - 1) * 4)} */}
             <div className="wrapper-main">
                 <div className="cards">
                     {pokemon ? pokemon.results.map(poke => {

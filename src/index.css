@@ -82,18 +82,20 @@ header a.active button {
 
 /*main*/
 main {
-    padding: .5rem
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: .5rem */
 }
 
 .wrapper-main {
     display: grid;
-    grid-template-columns: 1fr minmax(135px, 540px) 1fr;
+    grid-template-columns: minmax(135px, 540px);
     grid-template-rows: auto auto;
     margin-bottom: 20px;
 }
 
 .cards {
-    grid-area: 1/2/1/2;
     display: grid;
     grid-template-columns: repeat(auto-fit, 125px);
     grid-template-rows: repeat(auto-fit, 121px);
@@ -102,7 +104,6 @@ main {
 }
 
 .pageNav {
-    grid-area: 2/2/2/2;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
