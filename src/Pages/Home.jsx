@@ -11,6 +11,7 @@ export default function Home () {
     const POKEBASEURL = 'https://pokeapi.co/api/v2/pokemon-species'
     const [pokemon, setPokemon] = useState(null)
     const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${limit}`)
+    const [currentDisLim, setCurrentDisLim] = useState(displayLimit)
     const lastPage = Math.ceil(pokedexEnd / displayLimit)
     let currentPage = Math.floor(currentOffset / displayLimit) + 1
 
@@ -28,18 +29,17 @@ export default function Home () {
     }, [url])
 
     useEffect(() => {
-        console.log('displayLimit')
-        setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
-    }, [displayLimit])
+        displayLimit = currentDisLim
+        setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
+    }, [currentDisLim])
 
     useEffect(() => {
         function handleResize () {
-            displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
+            const cardLim = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
+            cardLim < 4 ? setCurrentDisLim(4) 
+            : setCurrentDisLim((Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4)
         }
-
         window.addEventListener("resize", handleResize)
-
-        handleResize()
 
         return () => window.removeEventListener('resize', handleResize)
     }, [])
@@ -51,7 +51,7 @@ export default function Home () {
 
         currentOffset < (pokedexEnd - displayLimit) && (
             currentOffset += displayLimit, 
-            setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
+            setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
     }
 
@@ -70,25 +70,22 @@ export default function Home () {
     }
     
     return (
-        <>
-            {/* {console.log((Math.floor(window.innerHeight / 131) - 1) * 4)} */}
-            <div className="wrapper-main">
-                <div className="cards">
-                    {pokemon ? pokemon.results.map(poke => {
-                        return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(42, poke.url.length-1)}/>
-                    }) : null}
-                </div>
-                <div className="pageNav">
-                    <button id="backBut" onClick={prevBut}>Back</button>
-                    <p>page&#8198;
-                        <button className="currentPageNum" onClick={() => console.log("clicked")}>
-                            {currentPage}
-                        </button>
-                        &#8198;out of {lastPage}
-                    </p>
-                    <button id="nextBut" onClick={nextBut}>Next</button>
-                </div>
+        <div className="card-wrapper">
+            <div className="cards">
+                {pokemon ? pokemon.results.map(poke => {
+                    return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(42, poke.url.length-1)}/>
+                }) : null}
             </div>
-        </>
+            <div className="pageNav">
+                <button id="backBut" onClick={prevBut}>Back</button>
+                <p>page&#8198;
+                    <button className="currentPageNum" onClick={() => console.log("clicked")}>
+                        {currentPage}
+                    </button>
+                    &#8198;out of {lastPage}
+                </p>
+                <button id="nextBut" onClick={nextBut}>Next</button>
+            </div>
+        </div>
     )
 }

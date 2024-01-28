@@ -76,21 +76,19 @@ export default function GenerationList ({url}) {
     }
     
     return (
-        <>
-            <div className="wrapper-main">
-                <div className="cards">
-                    {pokedex ? pokedex.map((poke, index) => {
-                        return (
-                            index >= start && index < end &&
-                            <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(42, poke.url.length - 1)}/>
-                    )}) : null}
-                </div>
-                <div className="pageNav">
-                    <button id="backBut" onClick={prevBut}>Back</button>
-                    <p>page {Math.floor(start / displayLimit) + 1} out of {Math.ceil(pokedexEnd / displayLimit)}</p>
-                    <button id="nextBut" onClick={nextBut}>Next</button>
-                </div>
+        <div className="card-wrapper">
+            <div className="cards">
+                {pokedex ? pokedex.map((poke, index) => {
+                    return (
+                        index >= start && index < end &&
+                        <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(42, poke.url.length - 1)}/>
+                )}) : null}
             </div>
-        </>
+            <div className="pageNav">
+                <button id="backBut" onClick={prevBut}>Back</button>
+                <p>page {Math.floor(start / displayLimit) + 1} out of {Math.ceil(pokedexEnd / displayLimit)}</p>
+                <button id="nextBut" onClick={nextBut}>Next</button>
+            </div>
+        </div>
     )
 }

@@ -16,7 +16,7 @@ export default function PokeEntry() {
     }
 
     return (
-        <>
+        <div className="entry-wrapper">
             <PokeBasicInfo imgURL={pokeInfo.sprites.front_default} name={"Name: " + pokeInfo.name} typings={pokeInfo.types}/>
             <p className="description">Description: {pokeSpecies && pokeSpecies.flavor_text_entries.length > 0 && pokeSpecies.flavor_text_entries[engIndex()].flavor_text.replaceAll('', '\n')}</p>
             <section className="forms">
@@ -30,7 +30,7 @@ export default function PokeEntry() {
                 {(pokeSpecies && pokeSpecies.varieties.length > 1) ? 
                     pokeSpecies.varieties.map(varient => <PokeVar key={varient.pokemon.name} origName={pokeInfo.name} varientURL={varient.pokemon.url}/>) : " None"}
             </section>
-        </>
+        </div>
     )
 }
 

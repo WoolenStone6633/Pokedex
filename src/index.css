@@ -10,6 +10,7 @@
 }
 
 body {
+    height: 100vh;
     overflow-x: hidden;
     padding-top: 2.3rem;
 }
@@ -82,20 +83,30 @@ header a.active button {
 
 /*main*/
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* padding: .5rem */
+    display: grid;
+    position: relative;
+    height: 97vh;
 }
 
-.wrapper-main {
+.regNav {
+    position: absolute;
+}
+
+.genNav {
+    position: absolute;
+}
+
+.card-wrapper {
     display: grid;
-    grid-template-columns: minmax(135px, 540px);
+    grid-template-columns: 1fr minmax(135px, 540px) 1fr;
     grid-template-rows: auto auto;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .cards {
+    grid-area: 1/2/1/2;
     display: grid;
     grid-template-columns: repeat(auto-fit, 125px);
     grid-template-rows: repeat(auto-fit, 121px);
@@ -104,9 +115,14 @@ main {
 }
 
 .pageNav {
+    grid-area: 2/2/2/2;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+}
+
+.entry-wrapper {
+
 }
 
 #backBut, #nextBut {
@@ -137,6 +153,7 @@ footer {
     border-top-color: black;
     bottom: 0px;
     width: 100%;
+    z-index: 999;
 }
 
 footer p {
