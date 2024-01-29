@@ -138,14 +138,12 @@ main {
 
 #currentPageNum {
     border: none;
+    outline: none;
     font-size: 1em;
     background-color: transparent;
     text-decoration: underline;
     cursor: pointer;
-    width: max-content;
 }
-
-/* #currentPageNum  */
 
 /*footer*/
 footer {

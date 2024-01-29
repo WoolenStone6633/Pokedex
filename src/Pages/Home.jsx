@@ -32,6 +32,7 @@ export default function Home () {
     useEffect(() => {
         displayLimit = currentDisLim
         setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
+        setCurrentInputPage(Math.floor(currentOffset / displayLimit) + 1)
     }, [currentDisLim])
 
     useEffect(() => {
@@ -54,7 +55,8 @@ export default function Home () {
             currentOffset += displayLimit, 
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
-        setCurrentInputPage(Math.floor(currentOffset / displayLimit) + 1)
+        currentPage = Math.floor(currentOffset / displayLimit) + 1
+        setCurrentInputPage(currentPage)
     }
 
     const prevBut = () => {
@@ -69,7 +71,8 @@ export default function Home () {
             limit = displayLimit,
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
-        setCurrentInputPage(Math.floor(currentOffset / displayLimit) + 1)
+        currentPage = Math.floor(currentOffset / displayLimit) + 1
+        setCurrentInputPage(currentPage)
     }
 
     const inputChecker = e => {
@@ -81,10 +84,8 @@ export default function Home () {
         )
         && e.preventDefault()}
 
-        console.log(potentialVal, currentPage)
-
-        e.keyCode == 13 && e.target.value != currentPage ? (pageLoader(e.target.value - 1), currentPage = e.target.value)
-        : (e.keyCode == 13 && console.log("same page (want it to deselect the input and stuff)"))
+        e.keyCode == 13 && e.target.value != currentPage ? (document.getElementById('currentPageNum').blur(), (pageLoader(e.target.value - 1), currentPage = e.target.value))
+        : (e.keyCode == 13 && (document.getElementById('currentPageNum').blur(), console.log("same page")))
     }
 
     const pageLoader = offset => {
@@ -104,7 +105,7 @@ export default function Home () {
             <div className="pageNav">
                 <button id="backBut" onClick={prevBut}>Back</button>
                 <p>page&#8198;
-                    <input type="text" value={currentInputPage} id="currentPageNum" onKeyDown={inputChecker} onChange={e => setCurrentInputPage(e.target.value)}/>
+                    <input id="currentPageNum" type="text" value={currentInputPage} style={{width: `${currentInputPage.toString().length}ch`}} onKeyDown={inputChecker} onChange={e => setCurrentInputPage(e.target.value)}/>
                     &#8198;out of {lastPage}
                 </p>
                 <button id="nextBut" onClick={nextBut}>Next</button>
