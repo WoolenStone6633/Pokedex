@@ -85,21 +85,19 @@ export default function RegionList ({url}) {
     }
     
     return (
-        <>
-            <div className="wrapper-main">
-                <div className="cards">
-                    {pokedex ? pokedex.map((poke, index) => {
-                        return (
-                            index >= start && index < end &&
-                            <PokeCard key={poke.pokemon_species.name} name={poke.pokemon_species.name} pokeNum={poke.pokemon_species.url.substring(42, poke.pokemon_species.url.length-1)}/>
-                    )}) : null}
-                </div>
-                <div className="pageNav">
-                    <button id="backBut" onClick={prevBut}>Back</button>
-                    <p>page {Math.floor(start / displayLimit) + 1} out of {Math.ceil(pokedexEnd / displayLimit)}</p>
-                    <button id="nextBut" onClick={nextBut}>Next</button>
-                </div>
+        <div className="card-wrapper">
+            <div className="cards">
+                {pokedex ? pokedex.map((poke, index) => {
+                    return (
+                        index >= start && index < end &&
+                        <PokeCard key={poke.pokemon_species.name} name={poke.pokemon_species.name} pokeNum={poke.pokemon_species.url.substring(42, poke.pokemon_species.url.length-1)}/>
+                )}) : null}
             </div>
-        </>
+            <div className="pageNav">
+                <button id="backBut" onClick={prevBut}>Back</button>
+                <p>page {Math.floor(start / displayLimit) + 1} out of {Math.ceil(pokedexEnd / displayLimit)}</p>
+                <button id="nextBut" onClick={nextBut}>Next</button>
+            </div>
+        </div>
     )
 }

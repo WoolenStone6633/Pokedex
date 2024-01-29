@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
 import PokeCard from "../Components/PokeCard"
 
-const displayLimit = 20
+const pokeCardHeight = 131
+let displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
 let currentOffset = 0
 let limit = displayLimit
 let currentPage = Math.floor(currentOffset / displayLimit) + 1
@@ -12,6 +13,7 @@ export default function Home () {
     const [pokemon, setPokemon] = useState(null)
     const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${limit}`)
     const [currentInputPage, setCurrentInputPage] = useState(currentPage)
+    const [currentDisLim, setCurrentDisLim] = useState(displayLimit)
     const lastPage = Math.ceil(pokedexEnd / displayLimit)
 
     useEffect(() => {
@@ -27,14 +29,30 @@ export default function Home () {
             .then(data => setPokemon(data))
     }, [url])
 
+    useEffect(() => {
+        displayLimit = currentDisLim
+        setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
+    }, [currentDisLim])
+
+    useEffect(() => {
+        function handleResize () {
+            const cardLim = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
+            cardLim < 4 ? setCurrentDisLim(4) 
+            : setCurrentDisLim((Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4)
+        }
+        window.addEventListener("resize", handleResize)
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
     const nextBut = () => {
         (currentOffset - (pokedexEnd - displayLimit * 2)) > 0 && (
             limit = (pokedexEnd - displayLimit) - currentOffset
         )
 
         currentOffset < (pokedexEnd - displayLimit) && (
-            currentOffset += displayLimit,
-            setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
+            currentOffset += displayLimit, 
+            setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
         setCurrentInputPage(Math.floor(currentOffset / displayLimit) + 1)
     }
@@ -77,22 +95,20 @@ export default function Home () {
     }
     
     return (
-        <>
-            <div className="wrapper-main">
-                <div className="cards">
-                    {pokemon ? pokemon.results.map(poke => {
-                        return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(42, poke.url.length-1)}/>
-                    }) : null}
-                </div>
-                <div className="pageNav">
-                    <button id="backBut" onClick={prevBut}>Back</button>
-                    <p>page&#8198;
-                        <input type="text" value={currentInputPage} id="currentPageNum" onKeyDown={inputChecker} onChange={e => setCurrentInputPage(e.target.value)}/>
-                        &#8198;out of {lastPage}
-                    </p>
-                    <button id="nextBut" onClick={nextBut}>Next</button>
-                </div>
+        <div className="card-wrapper">
+            <div className="cards">
+                {pokemon ? pokemon.results.map(poke => {
+                    return <PokeCard key={poke.name} name={poke.name} pokeNum={poke.url.substring(42, poke.url.length-1)}/>
+                }) : null}
             </div>
-        </>
+            <div className="pageNav">
+                <button id="backBut" onClick={prevBut}>Back</button>
+                <p>page&#8198;
+                    <input type="text" value={currentInputPage} id="currentPageNum" onKeyDown={inputChecker} onChange={e => setCurrentInputPage(e.target.value)}/>
+                    &#8198;out of {lastPage}
+                </p>
+                <button id="nextBut" onClick={nextBut}>Next</button>
+            </div>
+        </div>
     )
 }
