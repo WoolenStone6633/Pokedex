@@ -4,16 +4,15 @@ import PokeCard from "../Components/PokeCard"
 const displayLimit = 20
 let currentOffset = 0
 let limit = displayLimit
+let currentPage = Math.floor(currentOffset / displayLimit) + 1
 
 export default function Home () {
     const pokedexEnd = 1025 // (pokemon.count - 297) will need to update this value when more pokemon are added
     const POKEBASEURL = 'https://pokeapi.co/api/v2/pokemon-species'
     const [pokemon, setPokemon] = useState(null)
     const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${limit}`)
+    const [currentInputPage, setCurrentInputPage] = useState(currentPage)
     const lastPage = Math.ceil(pokedexEnd / displayLimit)
-    let currentPage = Math.floor(currentOffset / displayLimit) + 1
-    let pageNumShowing = true
-    let currentPageNum = currentPage
 
     useEffect(() => {
         // checks to see if the next or back button needs to be displayed
@@ -34,9 +33,10 @@ export default function Home () {
         )
 
         currentOffset < (pokedexEnd - displayLimit) && (
-            currentOffset += displayLimit, 
+            currentOffset += displayLimit,
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
         )
+        setCurrentInputPage(Math.floor(currentOffset / displayLimit) + 1)
     }
 
     const prevBut = () => {
@@ -51,28 +51,26 @@ export default function Home () {
             limit = displayLimit,
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
-    }
-
-    const pageNum = () => {
-        pageNumShowing ? currentPageNum = <input onKeyDown={inputChecker}/> : currentPageNum = currentPage
-        pageNumShowing = !pageNumShowing
-        console.log(currentPageNum)
+        setCurrentInputPage(Math.floor(currentOffset / displayLimit) + 1)
     }
 
     const inputChecker = e => {
-        (
-            (e.keyCode < 48 || e.keyCode > 57) && e.keyCode != 8 
-            || e.target.value * Math.pow(10, e.target.value.length) + (e.key * 1) > 52 || e.target.value * Math.pow(10, e.target.value.length) + (e.key * 1) == 0
+        const potentialVal = e.target.value * 10 + (e.key * 1)
+
+        {(
+            (e.keyCode < 48 || (e.keyCode > 57 && e.keyCode < 96) || e.keyCode > 105) && e.keyCode != 8 
+            || potentialVal > 52 || potentialVal == 0
         )
-        && e.preventDefault()
+        && e.preventDefault()}
 
-        e.keyCode == 13 && pageLoader(e.target.value - 1)
+        console.log(potentialVal, currentPage)
 
-        e.keyCode == 27 && currentPage
+        e.keyCode == 13 && e.target.value != currentPage ? (pageLoader(e.target.value - 1), currentPage = e.target.value)
+        : (e.keyCode == 13 && console.log("same page (want it to deselect the input and stuff)"))
     }
 
     const pageLoader = offset => {
-        if (offset >= 1 && offset <= lastPage) {
+        if (offset >= 0 && offset <= lastPage) {
             currentOffset = offset * displayLimit
             setURL(`${POKEBASEURL}?offset=${currentOffset}&limit=${displayLimit}`)
         }
@@ -89,9 +87,7 @@ export default function Home () {
                 <div className="pageNav">
                     <button id="backBut" onClick={prevBut}>Back</button>
                     <p>page&#8198;
-                        <button className="currentPageNum" onClick={pageNum}>
-                            {currentPageNum}
-                        </button>
+                        <input type="text" value={currentInputPage} id="currentPageNum" onKeyDown={inputChecker} onChange={e => setCurrentInputPage(e.target.value)}/>
                         &#8198;out of {lastPage}
                     </p>
                     <button id="nextBut" onClick={nextBut}>Next</button>
