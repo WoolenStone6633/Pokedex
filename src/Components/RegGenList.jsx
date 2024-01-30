@@ -77,7 +77,6 @@ export default function RegionList ({url, type}) {
 
     useEffect(() => {
         function handleResize () {
-            console.log((Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4)
             const cardLim = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
             cardLim < 4 ? setCurrentDisLim(4) 
             : setCurrentDisLim((Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4)
@@ -122,12 +121,17 @@ export default function RegionList ({url, type}) {
         setCurrentInputPage(currentPage)
     }
 
+    const blurCheck = e => {
+        if (e.target.value == '')
+            setCurrentInputPage(currentPage)
+    }
+
     const inputChecker = e => {
         const potentialVal = e.target.value * 10 + (e.key * 1)
 
         {(
             (e.keyCode < 48 || (e.keyCode > 57 && e.keyCode < 96) || e.keyCode > 105) && e.keyCode != 8 
-            || potentialVal > 52 || potentialVal == 0
+            || potentialVal > lastPage || potentialVal == 0
         )
         && e.preventDefault()}
 
@@ -159,7 +163,7 @@ export default function RegionList ({url, type}) {
             <div className="pageNav">
                 <button id="backBut" onClick={prevBut}>Back</button>
                 <p>page&#8198;
-                    <input id="currentPageNum" type="text" value={currentInputPage} style={{width: `${currentInputPage.toString().length}ch`}} onKeyDown={inputChecker} onChange={e => setCurrentInputPage(e.target.value)}/>
+                    <input id="currentPageNum" type="text" value={currentInputPage} style={{width: `${currentInputPage.toString().length}ch`}} onBlur={blurCheck} onKeyDown={inputChecker} onChange={e => e.target.value <= lastPage ? setCurrentInputPage(e.target.value) : setCurrentInputPage(currentPage)}/>
                     &#8198;out of {lastPage}
                 </p>
                 <button id="nextBut" onClick={nextBut}>Next</button>
