@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useLoaderData } from "react-router-dom"
-import GenerationList from "../Components/GenerationList"
+import RegGenList from "../Components/RegGenList"
 
 let globGeneration = "1"
 
@@ -20,7 +20,7 @@ export default function Generation () {
                     </button>)
                 })}
             </nav>
-            {generationURL && <GenerationList url={generationURL}/>}
+            {generationURL && <RegGenList url={generationURL} type={'gen'}/>}
         </>
     )
 }

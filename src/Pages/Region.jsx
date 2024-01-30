@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useLoaderData } from "react-router-dom"
-import RegionList from "../Components/RegionList"
+import RegGenList from "../Components/RegGenList"
 
 let globRegion = "kanto"
 
@@ -41,7 +41,7 @@ export default function Region () {
                     {region.name}
                 </button>)}
             </nav>
-            {pokedexURL && <RegionList url={pokedexURL}/>}
+            {pokedexURL && <RegGenList url={pokedexURL} type={'reg'}/>}
         </>
     )
 }
