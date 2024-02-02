@@ -5,7 +5,7 @@ export default function PokeBasicInfo({imgURL, name, typings = null}) {
             <img src={imgURL}></img>
             <p className="pokeName">{name.replaceAll('-', ' ')}</p>
             {typings != null && 
-                <div>Typing: {typings[0].type.name}{typings.length > 1 && (', ' + typings[1].type.name)}</div>}
+                <p>Typing: {typings[0].type.name}{typings.length > 1 && (', ' + typings[1].type.name)}</p>}
         </div>
     )
 }

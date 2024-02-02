@@ -15,7 +15,7 @@ body {
     padding-top: 2.3rem;
 }
 
-/*header*/
+/* main header */
 header {
     display: flex;
     justify-content: space-between;
@@ -32,7 +32,7 @@ header {
 }
 
 
-.pokeLink{
+.pokeLink {
     color: black;
     background-color: lightgray;
     border-right-style: solid;
@@ -81,28 +81,70 @@ header a.active button {
     background-color: rgb(187, 188, 209);
 }
 
-/*main*/
+/* main card body */
 main {
     display: grid;
-    position: relative;
     height: 97vh;
 }
 
-.regNav {
-    position: absolute;
+.reg-gen-wrapper {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
 }
 
-.genNav {
-    position: absolute;
+/* left nav on reg and gen */
+div nav {
+    background-color: rgb(252, 244, 241);
+    position: sticky;
+    top: 2.3rem;
+    max-height: 97vh;
 }
 
+.nav-list {
+    display: grid;
+    gap: 1.7rem;
+    padding-block: 1rem;
+    font-size: 1.7em;
+    font-family: Arial, sans-serif;
+    text-transform: capitalize;
+    list-style: none;
+}
+
+.nav-list li {
+    cursor: pointer;
+    padding-block: 0.2rem;
+    padding-right:  1rem;
+    padding-left: 1rem;
+    margin-left: 0.3rem;
+    border-radius: 1.5vw 0 0 1.5vw
+}
+
+ul .nav-title {
+    cursor: auto;
+    text-decoration: underline;
+    padding-block: 0rem;
+    padding-right: 0.7rem;
+    padding-left: 0.4rem;
+    margin-left: 0.2rem;
+}
+
+.activeNav {
+    background-color: gray;
+    color: white;
+}
+
+/* card layout */
 .card-wrapper {
     display: grid;
     grid-template-columns: 1fr minmax(135px, 540px) 1fr;
     grid-template-rows: auto auto;
     padding-bottom: 20px;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin-block: auto;
+}
+
+#cards-with-nav {
+    padding-right: 1rem;
 }
 
 .cards {
@@ -114,15 +156,12 @@ main {
     justify-content: center;
 }
 
+/* page nav for cards */
 .pageNav {
     grid-area: 2/2/2/2;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-}
-
-.entry-wrapper {
-
 }
 
 #backBut, #nextBut {
@@ -145,6 +184,27 @@ main {
     cursor: pointer;
 }
 
+/* pokeEntry header */
+.retBut {
+    background-color: lightgray;
+    border-block: 0px;
+    border-left: 0px;
+    padding-inline: .3em;
+    padding-top: .17em;
+    padding-bottom: .10em;
+    font-size: .9em;
+    font-family: Arial, sans-serif;
+}
+
+/* poke entry body */
+.entry-wrapper {
+    text-transform: capitalize;
+}
+
+.description {
+    text-transform: none;
+}
+
 /*footer*/
 footer {
     position: fixed;
@@ -165,15 +225,4 @@ footer p {
 footer a {
     text-decoration: none;
     color: rgb(0, 0, 202);
-}
-
-/*misc*/
-.activeRegBut {
-    background-color: gray;
-    color: white;
-}
-
-.activeGenBut {
-    background-color: gray;
-    color: white;
 }
