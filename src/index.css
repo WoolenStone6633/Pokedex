@@ -38,9 +38,7 @@ header {
     border-right-style: solid;
     border-right-color: black;
     border-right-width: 2px;
-    padding-inline: .3em;
-    padding-top: .17em;
-    padding-bottom: .10em;
+    padding: .17em .3em .10em .3em;
     font-size: .9em;
     font-family: Arial, sans-serif;
     text-decoration: none;
@@ -69,9 +67,7 @@ header p {
     background-color: lightgray;
     border-inline-style: solid;
     border-inline-width: 2px;
-    padding: .3em;
-    padding-top: .4em;
-    padding-inline: .7em;
+    padding: .4em .7em .3em .7em;
     margin-right: -.1em;
     font-size: .7em;
     cursor: pointer;
@@ -113,9 +109,7 @@ div nav {
 
 .nav-list li {
     cursor: pointer;
-    padding-block: 0.2rem;
-    padding-right:  1rem;
-    padding-left: 1rem;
+    padding: 0.2rem 1rem 0.2rem 1rem;
     margin-left: 0.3rem;
     border-radius: 1.5vw 0 0 1.5vw
 }
@@ -123,9 +117,7 @@ div nav {
 ul .nav-title {
     cursor: auto;
     text-decoration: underline;
-    padding-block: 0rem;
-    padding-right: 0.7rem;
-    padding-left: 0.4rem;
+    padding: 0rem 0.7rem 0rem 0.4rem;
     margin-left: 0.2rem;
 }
 
@@ -189,20 +181,51 @@ ul .nav-title {
     background-color: lightgray;
     border-block: 0px;
     border-left: 0px;
-    padding-inline: .3em;
-    padding-top: .17em;
-    padding-bottom: .10em;
+    padding: .17em .3em .10em .3em;
     font-size: .9em;
     font-family: Arial, sans-serif;
+    cursor: pointer;
 }
 
 /* poke entry body */
 .entry-wrapper {
+    display: grid;
+    grid-template-columns: minmax(250px, 500px);
+    grid-template-rows: repeat(auto-fit, auto);
+    gap: 1.5rem;
+    justify-content: center;
+    justify-items: center;
+    padding: 3rem 0rem 2rem 0rem;
+    margin-inline: 1rem;
+    margin-bottom: auto;
+    font-size: 1.5rem;
     text-transform: capitalize;
 }
 
 .description {
     text-transform: none;
+    margin-bottom: 2em;
+}
+
+.form-var-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: 0.5em 2em;
+}
+
+.varients, .forms {
+    display: grid;
+    gap: 2em;
+    justify-items: center;
+}
+
+.forms {
+    grid-area: 2/1/2/1;
+}
+
+.varients {
+    grid-area: 2/2/2/2;
 }
 
 /*footer*/
