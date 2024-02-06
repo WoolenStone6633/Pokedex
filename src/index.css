@@ -187,16 +187,26 @@ ul .nav-title {
     cursor: pointer;
 }
 
+/* Want to bold words like Description:, Name:, Typings:*/
+
 /* poke entry body */
-.entry-wrapper {
+
+.whole-entry-wrapper {
     display: grid;
-    grid-template-columns: minmax(250px, 500px);
+    grid-template-columns: 1fr minmax(250px, 550px) 1fr;
+    /* background-color: lightgray; */
+}
+
+.entry-wrapper {
+    /* background-color: white; */
+    grid-area: 1/2/1/2;
+    display: grid;
     grid-template-rows: repeat(auto-fit, auto);
     gap: 1.5rem;
     justify-content: center;
     justify-items: center;
-    padding: 3rem 0rem 2rem 0rem;
-    margin-inline: 1rem;
+    padding: 4rem 1rem 2rem 1rem;
+    /* margin-inline: 1rem; */
     margin-bottom: auto;
     font-size: 1.5rem;
     text-transform: capitalize;
@@ -205,6 +215,7 @@ ul .nav-title {
 .description {
     text-transform: none;
     margin-bottom: 2em;
+    text-align: center;
 }
 
 .form-var-wrapper {
