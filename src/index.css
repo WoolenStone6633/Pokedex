@@ -177,11 +177,11 @@ ul .nav-title {
 
 #currentPageNum {
     border: none;
-    outline: none;
     font-size: 1em;
     background-color: transparent;
     text-decoration: underline;
     cursor: pointer;
+    width: max-content;
 }
 
 /* pokeEntry header */

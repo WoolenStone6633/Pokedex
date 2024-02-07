@@ -32,7 +32,6 @@ export default function Home () {
     useEffect(() => {
         displayLimit = currentDisLim
         setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
-        setCurrentInputPage(Math.floor(currentOffset / displayLimit) + 1)
     }, [currentDisLim])
 
     useEffect(() => {
@@ -55,8 +54,7 @@ export default function Home () {
             currentOffset += displayLimit, 
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
-        currentPage = Math.floor(currentOffset / displayLimit) + 1
-        setCurrentInputPage(currentPage)
+        setCurrentInputPage(Math.floor(currentOffset / displayLimit) + 1)
     }
 
     const prevBut = () => {
@@ -71,8 +69,7 @@ export default function Home () {
             limit = displayLimit,
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
-        currentPage = Math.floor(currentOffset / displayLimit) + 1
-        setCurrentInputPage(currentPage)
+        setCurrentInputPage(Math.floor(currentOffset / displayLimit) + 1)
     }
 
     const blurCheck = e => {
@@ -89,8 +86,10 @@ export default function Home () {
         )
         && e.preventDefault()}
 
-        e.keyCode == 13 && e.target.value != currentPage ? (document.getElementById('currentPageNum').blur(), (pageLoader(e.target.value - 1), currentPage = e.target.value))
-        : (e.keyCode == 13 && (document.getElementById('currentPageNum').blur(), console.log("same page")))
+        console.log(potentialVal, currentPage)
+
+        e.keyCode == 13 && e.target.value != currentPage ? (pageLoader(e.target.value - 1), currentPage = e.target.value)
+        : (e.keyCode == 13 && console.log("same page (want it to deselect the input and stuff)"))
     }
 
     const pageLoader = offset => {
