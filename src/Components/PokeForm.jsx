@@ -12,10 +12,10 @@ export default function PokeForm({formURL}) {
       }, [])
 
     return (
-        <>
+        <div>
             {pokeForm && 
                 <PokeBasicInfo imgURL={pokeForm.sprites.front_default} name={pokeForm.form_name}/>
             }
-        </>
+        </div>
     )
 }

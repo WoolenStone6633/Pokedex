@@ -10,22 +10,18 @@ export default function Generation () {
     const [generationURL, setGenerationURL] = useState(`${url}/${globGeneration}`)
     
     return (
-        <div className="reg-gen-wrapper">
-            <nav>
-                <ul class='nav-list'>
-                    <li className="nav-title">Generations: </li>
-                    {generations.map(generation => {
-                    const searchTag = 'generation/'
-                    const genName = generation.url.substring(generation.url.search(searchTag) + searchTag.length, generation.url.length - 1)
-                    return (
-                        <li key={generation.name} className={genName == globGeneration && 'activeNav'} onClick={() => {globGeneration = genName, setGenerationURL(`${url}/${genName}`)}}>
-                            {`Gen ${genName}`}
-                        </li>)
-                    })}
-                </ul>
+        <>
+            <nav className='genNav'>{generations.map(generation => {
+                const searchTag = 'generation/'
+                const genName = generation.url.substring(generation.url.search(searchTag) + searchTag.length, generation.url.length - 1)
+                return (
+                    <button key={generation.name} className={genName == globGeneration ? 'activeGenBut' : 'genBut'} onClick={() => {globGeneration = genName, setGenerationURL(`${url}/${genName}`)}}>
+                        {`Gen ${genName}`}
+                    </button>)
+                })}
             </nav>
             {generationURL && <RegGenList url={generationURL} type={'gen'}/>}
-        </div>
+        </>
     )
 }
 

@@ -12,10 +12,10 @@ export default function PokeVar({origName, varientURL}) {
       }, [])
 
     return (
-        <>
+        <div>
             {pokeVar && origName != pokeVar.name && 
                 <PokeBasicInfo imgURL={pokeVar.sprites.front_default} name={pokeVar.name} typings={pokeVar.types}/>
             }
-        </>
+        </div>
     )
 }

@@ -35,18 +35,14 @@ export default function Region () {
     }
     
     return (
-        <div className="reg-gen-wrapper">
-            <nav>
-                <ul class='nav-list'>
-                    <li className="nav-title">Regions: </li>
-                    {regions.map(region => 
-                    <li key={region.name} className={region.name == globRegion && "activeNav"} onClick={() => {globRegion = region.name, setRegion(region.name)}}>
-                        {region.name}
-                    </li>)}
-                </ul>
+        <>
+            <nav className="regNav">{regions.map(region => 
+                <button key={region.name} className={region.name == globRegion ? "activeRegBut" : "regBut"} onClick={() => {globRegion = region.name, setRegion(region.name)}}>
+                    {region.name}
+                </button>)}
             </nav>
             {pokedexURL && <RegGenList url={pokedexURL} type={'reg'}/>}
-        </div>
+        </>
     )
 }
 
