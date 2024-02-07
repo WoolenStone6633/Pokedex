@@ -4,7 +4,9 @@ import PokeCard from "./PokeCard"
 const pokeCardHeight = 131
 let displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
 let start
+// let startStored
 let end
+// let endStored
 let endDex
 let limit
 let currentURL
@@ -21,7 +23,14 @@ export default function RegionList ({url, type}) {
     useEffect(() => {
         let urlArr = null
 
-        if (url != currentURL) {
+        if (url != currentURL && type == 'gen') {
+            start = 0
+            end = start + displayLimit
+            limit = displayLimit
+            currentURL = url
+            currentPage = Math.floor(start / displayLimit) + 1
+            setCurrentInputPage(currentPage)
+        } else if (url != currentURL && type == 'reg') {
             start = 0
             end = start + displayLimit
             limit = displayLimit

@@ -4,19 +4,20 @@ import PokeCard from "../Components/PokeCard"
 const pokeCardHeight = 131
 let displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
 let currentOffset = 0
-let limit = displayLimit
 let currentPage = Math.floor(currentOffset / displayLimit) + 1
 
 export default function Home () {
     const pokedexEnd = 1025 // (pokemon.count - 297) will need to update this value when more pokemon are added
     const POKEBASEURL = 'https://pokeapi.co/api/v2/pokemon-species'
     const [pokemon, setPokemon] = useState(null)
-    const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${limit}`)
+    const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${displayLimit}`)
     const [currentInputPage, setCurrentInputPage] = useState(currentPage)
     const [currentDisLim, setCurrentDisLim] = useState(displayLimit)
-    const lastPage = Math.ceil(pokedexEnd / displayLimit)
+    let lastPage = Math.ceil(pokedexEnd / displayLimit)
 
     useEffect(() => {
+        console.log(url)
+
         // checks to see if the next or back button needs to be displayed
         currentOffset <= 0 ? document.getElementById("backBut").style.visibility = "hidden"
         : document.getElementById("backBut").style.visibility = "visible"
@@ -32,7 +33,7 @@ export default function Home () {
     useEffect(() => {
         displayLimit = currentDisLim
         setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
-        setCurrentInputPage(Math.floor(currentOffset / displayLimit) + 1)
+        setCurrentInputPage(calCurrentPage())
     }, [currentDisLim])
 
     useEffect(() => {
@@ -47,32 +48,30 @@ export default function Home () {
     }, [])
 
     const nextBut = () => {
-        (currentOffset - (pokedexEnd - displayLimit * 2)) > 0 && (
-            limit = (pokedexEnd - displayLimit) - currentOffset
-        )
-
         currentOffset < (pokedexEnd - displayLimit) && (
             currentOffset += displayLimit, 
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
-        currentPage = Math.floor(currentOffset / displayLimit) + 1
+        currentPage = calCurrentPage()
         setCurrentInputPage(currentPage)
     }
 
     const prevBut = () => {
-        currentOffset >= displayLimit && limit == displayLimit ? (
-            currentOffset -= displayLimit,
-            setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
-        ) : currentOffset < displayLimit && currentOffset > 0 && limit == displayLimit ? (
+        currentOffset < displayLimit && currentOffset > 0 ? (
             currentOffset = 0,
-            setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + limit)
+            setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         ) : (
             currentOffset -= displayLimit,
-            limit = displayLimit,
             setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         )
-        currentPage = Math.floor(currentOffset / displayLimit) + 1
+        currentPage = calCurrentPage()
         setCurrentInputPage(currentPage)
+    }
+
+    const calCurrentPage = () => {
+        return currentOffset == 0 ? 1 
+        : ((currentOffset / displayLimit) % 1 != 0) ? Math.ceil(currentOffset / displayLimit) + 1
+        : currentOffset / displayLimit + 1
     }
 
     const blurCheck = e => {
