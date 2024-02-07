@@ -4,9 +4,13 @@
     gap: .2rem;
 }
 
+.basicInfo p {
+    z-index: 1;
+}
+
 .basicInfo img {
     transform: scale(1.5);
     image-rendering: pixelated;
     padding: 24px;
-    z-index: -1;
+    z-index: 0;
 }

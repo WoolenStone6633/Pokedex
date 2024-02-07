@@ -187,18 +187,17 @@ ul .nav-title {
     cursor: pointer;
 }
 
-/* Want to bold words like Description:, Name:, Typings:*/
+/* Want to bold words like Description:, Name:, Typings: */
 
 /* poke entry body */
-
 .whole-entry-wrapper {
     display: grid;
     grid-template-columns: 1fr minmax(250px, 550px) 1fr;
-    /* background-color: lightgray; */
+    background-color: lightgray;
 }
 
 .entry-wrapper {
-    /* background-color: white; */
+    background-color: white;
     grid-area: 1/2/1/2;
     display: grid;
     grid-template-rows: repeat(auto-fit, auto);
@@ -225,7 +224,7 @@ ul .nav-title {
     gap: 0.5em 2em;
 }
 
-.varients, .forms {
+.forms, .varients {
     display: grid;
     gap: 2em;
     justify-items: center;

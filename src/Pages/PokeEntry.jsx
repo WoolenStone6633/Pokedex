@@ -19,15 +19,15 @@ export default function PokeEntry() {
         <div className="whole-entry-wrapper">
             <div className="entry-wrapper">
                 <PokeBasicInfo imgURL={pokeInfo.sprites.front_default} name={"Name: " + pokeInfo.name} typingN="Typings: " typings={pokeInfo.types}/>
-                <p className="description">Description: {pokeSpecies && pokeSpecies.flavor_text_entries.length > 0 && pokeSpecies.flavor_text_entries[engIndex()].flavor_text.replaceAll('', '\n')}</p>
+                <p className="description"><strong>Description: </strong>{pokeSpecies && pokeSpecies.flavor_text_entries.length > 0 && pokeSpecies.flavor_text_entries[engIndex()].flavor_text.replaceAll('', '\n')}</p>
                 <div className="form-var-wrapper">
-                    <p>Forms:</p>
+                    <p><strong>Forms:</strong></p>
                     <section className="forms">
                         {pokeInfo.forms.length > 1 ?
                             pokeInfo.forms.map(form => <PokeForm key={form.name} formURL={form.url}/>) : " None"
                     }
                     </section>
-                    <p>Variations:</p>
+                    <p><strong>Variations:</strong></p>
                     <section className="varients">
                         {(pokeSpecies && pokeSpecies.varieties.length > 1) ? 
                             pokeSpecies.varieties.map(varient => <PokeVar key={varient.pokemon.name} origName={pokeInfo.name} varientURL={varient.pokemon.url}/>) : " None"}
