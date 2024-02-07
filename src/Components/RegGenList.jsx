@@ -148,7 +148,7 @@ export default function RegionList ({url, type}) {
     }
     
     return (
-        <div className="card-wrapper">
+        <div className="card-wrapper" id="cards-with-nav">
             <div className="cards">
                 {pokedex && type == 'reg' ? pokedex.map((poke, index) => {
                     return (
