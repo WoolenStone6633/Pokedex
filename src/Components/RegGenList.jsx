@@ -3,17 +3,17 @@ import PokeCard from "./PokeCard"
 
 const pokeCardHeight = 131
 let displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
-let start = 0
+let start
 let end
 let endDex
 let limit
 let currentURL
-let currentPage = Math.floor(start / displayLimit) + 1
+let currentPage
 
 export default function RegionList ({url, type}) {
     const [pokedex, setPokedex] = useState(null)
     const [pokedexEnd, setPokedexEnd] = useState(null)
-    const [currentInputPage, setCurrentInputPage] = useState(currentPage)
+    const [currentInputPage, setCurrentInputPage] = useState(Math.floor(start / displayLimit) + 1)
     const [currentDisLim, setCurrentDisLim] = useState(displayLimit)
     const [, render] = useState(null)
     const lastPage = Math.ceil(pokedexEnd / displayLimit)
@@ -26,6 +26,8 @@ export default function RegionList ({url, type}) {
             end = start + displayLimit
             limit = displayLimit
             currentURL = url
+            currentPage = Math.floor(start / displayLimit) + 1
+            setCurrentInputPage(currentPage)
         }
 
         if (type == 'reg') {
