@@ -17,11 +17,10 @@ export default function RegionList ({url, type}) {
     const [currentInputPage, setCurrentInputPage] = useState(start / displayLimit + 1)
     const [currentDisLim, setCurrentDisLim] = useState(displayLimit)
     const [, render] = useState(null)
-    const lastPage = Math.ceil(pokedexEnd / displayLimit)
+    const [lastPage, setLastPage] = useState('')
     
     useEffect(() => {
         let urlArr = null
-        console.log(url, currentURL)
 
         // storing the page information when switching between region and generation
         if (url.includes('pokedex') != currentURL.includes('pokedex') || url.includes('generation') != currentURL.includes('generation')) {
@@ -89,6 +88,7 @@ export default function RegionList ({url, type}) {
         end = start + displayLimit
         render(Math.random())
         setCurrentInputPage(calCurrentPage())
+        setLastPage(calLastPage())
     }, [currentDisLim])
 
     useEffect(() => {
@@ -138,6 +138,21 @@ export default function RegionList ({url, type}) {
         : start / displayLimit + 1
     }
 
+    const calLastPage = () => {
+        let offset = start
+        let pages = 0
+        while (pokedexEnd > offset) {
+            pages++
+            offset += displayLimit
+        }
+        offset = start
+        while (offset > 0) {
+            pages++
+            offset -= displayLimit
+        }
+        return pages
+    }
+
     const blurCheck = e => {
         if (e.target.value == '')
             setCurrentInputPage(currentPage)
@@ -163,6 +178,14 @@ export default function RegionList ({url, type}) {
             render(Math.random())
         }
     }
+
+    const getHighText = () => {
+        if (e.target.value == document.getSelection) {
+            console.log('worked')
+        } else {
+            console.log(e.target.value, document.getSelection)
+        }
+    }
     
     return (
         <div className="card-wrapper" id="cards-with-nav">
@@ -180,8 +203,8 @@ export default function RegionList ({url, type}) {
             <div className="pageNav">
                 <button id="backBut" onClick={prevBut}>Back</button>
                 <p>page&#8198;
-                    <input id="currentPageNum" type="text" value={currentInputPage} style={{width: `${currentInputPage.toString().length}ch`}} onBlur={blurCheck} onKeyDown={inputChecker} onChange={e => e.target.value <= lastPage ? setCurrentInputPage(e.target.value) : setCurrentInputPage(currentPage)}/>
-                    &#8198;out of {lastPage}
+                    <input id="currentPageNum" type="text" value={currentInputPage} style={{width: `${currentInputPage.toString().length}ch`}} onBlur={blurCheck} onKeyDown={inputChecker} onMouseUp={getHighText} onChange={e => e.target.value <= lastPage ? setCurrentInputPage(e.target.value) : setCurrentInputPage(currentPage)}/>
+                    &#8198;out of {lastPage == 0 ? Math.ceil(pokedexEnd / displayLimit) : lastPage}
                 </p>
                 <button id="nextBut" onClick={nextBut}>Next</button>
             </div>

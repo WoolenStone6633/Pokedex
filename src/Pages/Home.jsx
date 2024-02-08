@@ -13,11 +13,10 @@ export default function Home () {
     const [url, setURL] = useState(`${POKEBASEURL}?offset=${currentOffset}&limit=${displayLimit}`)
     const [currentInputPage, setCurrentInputPage] = useState(currentPage)
     const [currentDisLim, setCurrentDisLim] = useState(displayLimit)
-    let lastPage = Math.ceil(pokedexEnd / displayLimit)
+    const [lastPage, setLastPage] = useState(Math.ceil(pokedexEnd / displayLimit))
+    const [highlighted, setHighlighted] = useState(false)
 
     useEffect(() => {
-        console.log(url)
-
         // checks to see if the next or back button needs to be displayed
         currentOffset <= 0 ? document.getElementById("backBut").style.visibility = "hidden"
         : document.getElementById("backBut").style.visibility = "visible"
@@ -34,6 +33,7 @@ export default function Home () {
         displayLimit = currentDisLim
         setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
         setCurrentInputPage(calCurrentPage())
+        setLastPage(calLastPage())
     }, [currentDisLim])
 
     useEffect(() => {
@@ -74,6 +74,21 @@ export default function Home () {
         : currentOffset / displayLimit + 1
     }
 
+    const calLastPage = () => {
+        let offset = currentOffset
+        let pages = 0
+        while (pokedexEnd > offset) {
+            pages++
+            offset += displayLimit
+        }
+        offset = currentOffset
+        while (offset > 0) {
+            pages++
+            offset -= displayLimit
+        }
+        return pages
+    }
+
     const blurCheck = e => {
         if (e.target.value == '')
             setCurrentInputPage(currentPage)
@@ -98,6 +113,12 @@ export default function Home () {
             setURL(`${POKEBASEURL}?offset=${currentOffset}&limit=${displayLimit}`)
         }
     }
+
+    const getHighText = e => {
+        if (e.target.value == window.getSelection().toString()) {
+            setHighlighted(true)
+        }
+    }
     
     return (
         <div className="card-wrapper">
@@ -109,7 +130,7 @@ export default function Home () {
             <div className="pageNav">
                 <button id="backBut" onClick={prevBut}>Back</button>
                 <p>page&#8198;
-                    <input id="currentPageNum" type="text" value={currentInputPage} style={{width: `${currentInputPage.toString().length}ch`}} onBlur={blurCheck} onKeyDown={inputChecker} onChange={e => e.target.value <= lastPage ? setCurrentInputPage(e.target.value) : setCurrentInputPage(currentPage)}/>
+                    <input id="currentPageNum" type="text" value={currentInputPage} style={{width: `${currentInputPage.toString().length}ch`}} onBlur={blurCheck} onKeyDown={inputChecker} onMouseUp={getHighText} onChange={e => e.target.value <= lastPage ? setCurrentInputPage(e.target.value) : setCurrentInputPage(currentPage)}/>
                     &#8198;out of {lastPage}
                 </p>
                 <button id="nextBut" onClick={nextBut}>Next</button>
