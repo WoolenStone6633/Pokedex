@@ -4,39 +4,44 @@ import PokeCard from "./PokeCard"
 const pokeCardHeight = 131
 let displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
 let start
-// let startStored
+let startStored
 let end
-// let endStored
+let endStored
 let endDex
-let limit
-let currentURL
+let currentURL = ''
 let currentPage
 
 export default function RegionList ({url, type}) {
     const [pokedex, setPokedex] = useState(null)
     const [pokedexEnd, setPokedexEnd] = useState(null)
-    const [currentInputPage, setCurrentInputPage] = useState(Math.floor(start / displayLimit) + 1)
+    const [currentInputPage, setCurrentInputPage] = useState(start / displayLimit + 1)
     const [currentDisLim, setCurrentDisLim] = useState(displayLimit)
     const [, render] = useState(null)
     const lastPage = Math.ceil(pokedexEnd / displayLimit)
     
     useEffect(() => {
         let urlArr = null
+        console.log(url, currentURL)
 
-        if (url != currentURL && type == 'gen') {
+        // storing the page information when switching between region and generation
+        if (url.includes('pokedex') != currentURL.includes('pokedex') || url.includes('generation') != currentURL.includes('generation')) {
+            let temp = start
+            startStored == undefined ? start = 0 : start = startStored
+            startStored = temp
+            
+            temp = end
+            endStored == undefined ? end = start + displayLimit : end = endStored
+            endStored = temp
+
+            currentURL = url
+            currentPage = calCurrentPage()
+            setCurrentInputPage(currentPage) 
+        } else if (url != currentURL){
             start = 0
             end = start + displayLimit
-            limit = displayLimit
             currentURL = url
-            currentPage = Math.floor(start / displayLimit) + 1
-            setCurrentInputPage(currentPage)
-        } else if (url != currentURL && type == 'reg') {
-            start = 0
-            end = start + displayLimit
-            limit = displayLimit
-            currentURL = url
-            currentPage = Math.floor(start / displayLimit) + 1
-            setCurrentInputPage(currentPage)
+            currentPage = calCurrentPage()
+            setCurrentInputPage(currentPage) 
         }
 
         if (type == 'reg') {
@@ -83,7 +88,7 @@ export default function RegionList ({url, type}) {
         displayLimit = currentDisLim
         end = start + displayLimit
         render(Math.random())
-        setCurrentInputPage(Math.floor(start / displayLimit) + 1)
+        setCurrentInputPage(calCurrentPage())
     }, [currentDisLim])
 
     useEffect(() => {
@@ -98,38 +103,39 @@ export default function RegionList ({url, type}) {
     }, [])
 
     const nextBut = () => {
-        (start - (pokedex.length - displayLimit * 2)) > 0 && (
-            limit = (pokedex.length - displayLimit) - start
-        )
-
         start < (pokedex.length - displayLimit) && (
             start += displayLimit,
-            end += limit,
+            end = start + displayLimit,
             render(Math.random())
         )
         end == pokedex.length ? endDex = true : endDex = false
-        currentPage = Math.floor(start / displayLimit) + 1
+        currentPage = calCurrentPage()
         setCurrentInputPage(currentPage)
     }
 
     const prevBut = () => {
-        start >= displayLimit && limit == displayLimit ? (
+        start >= displayLimit ? (
             start -= displayLimit,
             end = start + displayLimit,
             render(Math.random())
-        ) : start < displayLimit && start > 0 && limit == displayLimit ? (
+        ) : start < displayLimit && start > 0 ? (
             start = 0,
             end = displayLimit,
             render(Math.random())
-        ) : limit != displayLimit && (
+        ) : (
             start -= displayLimit, 
             end = start + displayLimit,
-            limit = displayLimit, 
             render(Math.random())
         )
         endDex = false
-        currentPage = Math.floor(start / displayLimit) + 1
+        currentPage = calCurrentPage()
         setCurrentInputPage(currentPage)
+    }
+
+    const calCurrentPage = () => {
+        return start == 0 ? 1 
+        : ((start / displayLimit) % 1 != 0) ? Math.ceil(start / displayLimit) + 1
+        : start / displayLimit + 1
     }
 
     const blurCheck = e => {
