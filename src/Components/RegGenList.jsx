@@ -179,11 +179,9 @@ export default function RegionList ({url, type}) {
         }
     }
 
-    const getHighText = () => {
-        if (e.target.value == document.getSelection) {
-            console.log('worked')
-        } else {
-            console.log(e.target.value, document.getSelection)
+    const getHighText = e => {
+        if (e.target.value == window.getSelection().toString()) {
+            setHighlighted(true)
         }
     }
     

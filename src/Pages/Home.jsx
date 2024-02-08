@@ -90,12 +90,13 @@ export default function Home () {
     }
 
     const blurCheck = e => {
-        if (e.target.value == '')
+        if (e.target.value == '' || (e.target.value != currentPage))
             setCurrentInputPage(currentPage)
     }
 
     const inputChecker = e => {
-        const potentialVal = e.target.value * 10 + (e.key * 1)
+        let potentialVal
+        highlighted ? (potentialVal = e.key, setHighlighted(false)) : potentialVal = e.target.value * 10 + (e.key * 1)
 
         {(
             (e.keyCode < 48 || (e.keyCode > 57 && e.keyCode < 96) || e.keyCode > 105) && e.keyCode != 8 
