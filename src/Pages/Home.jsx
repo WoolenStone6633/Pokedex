@@ -104,7 +104,7 @@ export default function Home () {
         )
         && e.preventDefault()}
 
-        e.keyCode == 13 && e.target.value != currentPage ? (document.getElementById('currentPageNum').blur(), (pageLoader(e.target.value - 1), currentPage = e.target.value))
+        e.keyCode == 13 && e.target.value != currentPage ? (currentPage = e.target.value, document.getElementById('currentPageNum').blur(), (pageLoader(e.target.value - 1)))
         : (e.keyCode == 13 && (document.getElementById('currentPageNum').blur(), console.log("same page")))
     }
 

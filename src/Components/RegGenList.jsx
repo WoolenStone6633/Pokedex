@@ -8,6 +8,7 @@ let startStored
 let end
 let endStored
 let endDex
+let endDexStored
 let currentURL = ''
 let currentPage
 
@@ -18,6 +19,7 @@ export default function RegionList ({url, type}) {
     const [currentDisLim, setCurrentDisLim] = useState(displayLimit)
     const [, render] = useState(null)
     const [lastPage, setLastPage] = useState('')
+    const [highlighted, setHighlighted] = useState(false)
     
     useEffect(() => {
         let urlArr = null
@@ -32,15 +34,21 @@ export default function RegionList ({url, type}) {
             endStored == undefined ? end = start + displayLimit : end = endStored
             endStored = temp
 
+            temp = endDex
+            endDexStored == undefined ? endDex = false : endDex = endDexStored
+            endDexStored = temp
+
             currentURL = url
             currentPage = calCurrentPage()
-            setCurrentInputPage(currentPage) 
+            setCurrentInputPage(currentPage)
         } else if (url != currentURL){
             start = 0
             end = start + displayLimit
             currentURL = url
             currentPage = calCurrentPage()
-            setCurrentInputPage(currentPage) 
+            setCurrentInputPage(currentPage)
+            document.getElementById("backBut").style.visibility = "hidden"
+            document.getElementById("nextBut").style.visibility = "visible"
         }
 
         if (type == 'reg') {
@@ -92,6 +100,10 @@ export default function RegionList ({url, type}) {
     }, [currentDisLim])
 
     useEffect(() => {
+        setLastPage(calLastPage)
+    }, [pokedexEnd])
+
+    useEffect(() => {
         function handleResize () {
             const cardLim = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
             cardLim < 4 ? setCurrentDisLim(4) 
@@ -108,7 +120,7 @@ export default function RegionList ({url, type}) {
             end = start + displayLimit,
             render(Math.random())
         )
-        end == pokedex.length ? endDex = true : endDex = false
+        end >= pokedex.length ? endDex = true : endDex = false
         currentPage = calCurrentPage()
         setCurrentInputPage(currentPage)
     }
@@ -154,12 +166,13 @@ export default function RegionList ({url, type}) {
     }
 
     const blurCheck = e => {
-        if (e.target.value == '')
+        if (e.target.value == '' || (e.target.value != currentPage))
             setCurrentInputPage(currentPage)
     }
 
     const inputChecker = e => {
-        const potentialVal = e.target.value * 10 + (e.key * 1)
+        let potentialVal
+        highlighted ? (potentialVal = e.key, setHighlighted(false)) : potentialVal = e.target.value * 10 + (e.key * 1)
 
         {(
             (e.keyCode < 48 || (e.keyCode > 57 && e.keyCode < 96) || e.keyCode > 105) && e.keyCode != 8 
@@ -167,7 +180,7 @@ export default function RegionList ({url, type}) {
         )
         && e.preventDefault()}
 
-        e.keyCode == 13 && e.target.value != currentPage ? (document.getElementById('currentPageNum').blur(), (pageLoader(e.target.value - 1), currentPage = e.target.value))
+        e.keyCode == 13 && e.target.value != currentPage ? (currentPage = e.target.value, document.getElementById('currentPageNum').blur(), (pageLoader(e.target.value - 1)))
         : (e.keyCode == 13 && (document.getElementById('currentPageNum').blur(), console.log("same page")))
     }
 
@@ -202,7 +215,7 @@ export default function RegionList ({url, type}) {
                 <button id="backBut" onClick={prevBut}>Back</button>
                 <p>page&#8198;
                     <input id="currentPageNum" type="text" value={currentInputPage} style={{width: `${currentInputPage.toString().length}ch`}} onBlur={blurCheck} onKeyDown={inputChecker} onMouseUp={getHighText} onChange={e => e.target.value <= lastPage ? setCurrentInputPage(e.target.value) : setCurrentInputPage(currentPage)}/>
-                    &#8198;out of {lastPage == 0 ? Math.ceil(pokedexEnd / displayLimit) : lastPage}
+                    &#8198;out of {lastPage}
                 </p>
                 <button id="nextBut" onClick={nextBut}>Next</button>
             </div>
