@@ -4,8 +4,13 @@ import css from "./PokeBasicInfo.module.css"
 export default function PokeBasicInfo({imgURL, name, typingN = '', typings = null}) {
     return (
         <div className={css.basicInfo}>
-            <img src={imgURL}></img>
-            {name.substring(0, 4) == 'Name' ? <p><strong>Name: </strong> {name.substring(5).replaceAll('-', ' ')}</p> : <p>{name.replaceAll('-', ' ')}</p>}
+            {name.substring(0, 4) == 'Name' ? (<>
+                <img className={css.titlePokemon} src={imgURL}></img>
+                <p><strong>Name: </strong> {name.substring(5).replaceAll('-', ' ')}</p>
+            </>) : (<>
+                <img src={imgURL}></img>
+                <p>{name.replaceAll('-', ' ')}</p>
+            </>)}
             {typings != null && 
                 <p><strong>{typingN}</strong>{typings[0].type.name}{typings.length > 1 && (', ' + typings[1].type.name)}</p>
             }

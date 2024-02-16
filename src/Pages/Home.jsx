@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import PokeCard from "../Components/PokeCard"
 
+// keep track of the page's state when moving form all to region to generation sorts
 const pokeCardHeight = 131
 let displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
 let currentOffset = 0
@@ -16,6 +17,7 @@ export default function Home () {
     const [lastPage, setLastPage] = useState(Math.ceil(pokedexEnd / displayLimit))
     const [highlighted, setHighlighted] = useState(false)
 
+    // update the page nav button visibility and fetch any new url api data
     useEffect(() => {
         // checks to see if the next or back button needs to be displayed
         currentOffset <= 0 ? document.getElementById("backBut").style.visibility = "hidden"
@@ -29,6 +31,7 @@ export default function Home () {
             .then(data => setPokemon(data))
     }, [url])
 
+    // handles the webpage vertically shrinking and growing
     useEffect(() => {
         displayLimit = currentDisLim
         setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)

@@ -111,7 +111,7 @@ div nav {
     cursor: pointer;
     padding: 0.2rem 1rem 0.2rem 1rem;
     margin-left: 0.3rem;
-    border-radius: 1.5vw 0 0 1.5vw
+    border-radius: 8px 0 0 8px;
 }
 
 ul .nav-title {
@@ -193,7 +193,7 @@ ul .nav-title {
 .whole-entry-wrapper {
     display: grid;
     grid-template-columns: 1fr minmax(250px, 550px) 1fr;
-    background-color: lightgray;
+    background-color: rgb(236, 236, 236);
 }
 
 .entry-wrapper {
@@ -205,16 +205,17 @@ ul .nav-title {
     justify-content: center;
     justify-items: center;
     padding: 4rem 1rem 2rem 1rem;
-    /* margin-inline: 1rem; */
     margin-bottom: auto;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     text-transform: capitalize;
+    font-family: Arial, sans-serif;
 }
 
 .description {
     text-transform: none;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
     text-align: center;
+    z-index: 1;
 }
 
 .form-var-wrapper {
@@ -222,6 +223,10 @@ ul .nav-title {
     grid-template-columns: 1fr 1fr;
     justify-items: center;
     gap: 0.5em 2em;
+}
+
+.sub-title {
+    z-index: 1;
 }
 
 .forms, .varients {
