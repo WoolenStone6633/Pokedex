@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import PokeCard from "./PokeCard"
 
+// keep track of the page's state when moving form all to region to generation sorts
 const pokeCardHeight = 131
 let displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
 let start
@@ -12,6 +13,7 @@ let endDexStored
 let currentURL = ''
 let currentPage
 
+// displays a list of pokecards and the page nav
 export default function RegionList ({url, type}) {
     const [pokedex, setPokedex] = useState(null)
     const [pokedexEnd, setPokedexEnd] = useState(null)
@@ -24,8 +26,9 @@ export default function RegionList ({url, type}) {
     useEffect(() => {
         let urlArr = null
 
-        // storing the page information when switching between region and generation
+        // resets/stores information based on if the user is switching between nav options or sort by options
         if (url.includes('pokedex') != currentURL.includes('pokedex') || url.includes('generation') != currentURL.includes('generation')) {
+            // storing the page information when switching between region and generation
             let temp = start
             startStored == undefined ? start = 0 : start = startStored
             startStored = temp
@@ -38,10 +41,13 @@ export default function RegionList ({url, type}) {
             endDexStored == undefined ? endDex = false : endDex = endDexStored
             endDexStored = temp
 
+            // updates the current variable trackers
             currentURL = url
             currentPage = calCurrentPage()
             setCurrentInputPage(currentPage)
-        } else if (url != currentURL){
+
+        // "resets" the page when clicking a different region or generation
+        } else if (url != currentURL) {
             start = 0
             end = start + displayLimit
             currentURL = url
@@ -51,6 +57,7 @@ export default function RegionList ({url, type}) {
             document.getElementById("nextBut").style.visibility = "visible"
         }
 
+        // fetches the correct information for the sort by and region/generation nav options   
         if (type == 'reg') {
             if (url.includes("12" && "13" && "14")) {
                 urlArr = url.split(',').splice(1, 3)
@@ -74,10 +81,12 @@ export default function RegionList ({url, type}) {
         }
     }, [url])
 
+    // organizes the pokemon from the generation pokemon_species data
     const compare = (a, b) => {
         return a.url.substring(42, a.url.length - 1) - b.url.substring(42, b.url.length - 1)
     }
 
+    // update the page nav button visibility 
     useEffect(() => {
         pokedex ? (
             start <= 0 ? document.getElementById("backBut").style.visibility = "hidden"
@@ -91,6 +100,12 @@ export default function RegionList ({url, type}) {
         : null
     }, [start, end])
 
+    // updates the total pages when the pokedex end changes
+    useEffect(() => {
+        setLastPage(calLastPage)
+    }, [pokedexEnd])
+
+    // changes the amount of cards on the screen depending on the vertical height of the webpage
     useEffect(() => {
         displayLimit = currentDisLim
         end = start + displayLimit
@@ -99,10 +114,7 @@ export default function RegionList ({url, type}) {
         setLastPage(calLastPage())
     }, [currentDisLim])
 
-    useEffect(() => {
-        setLastPage(calLastPage)
-    }, [pokedexEnd])
-
+    // monitors the window height and updates display limit depending on the calculation below
     useEffect(() => {
         function handleResize () {
             const cardLim = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
@@ -114,6 +126,7 @@ export default function RegionList ({url, type}) {
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
+    // controls the functionality of the next button
     const nextBut = () => {
         start < (pokedex.length - displayLimit) && (
             start += displayLimit,
@@ -125,6 +138,7 @@ export default function RegionList ({url, type}) {
         setCurrentInputPage(currentPage)
     }
 
+    // controls the functionality of the back button
     const prevBut = () => {
         start >= displayLimit ? (
             start -= displayLimit,
@@ -144,12 +158,14 @@ export default function RegionList ({url, type}) {
         setCurrentInputPage(currentPage)
     }
 
+    // calculates the current page the suer is on
     const calCurrentPage = () => {
         return start == 0 ? 1 
         : ((start / displayLimit) % 1 != 0) ? Math.ceil(start / displayLimit) + 1
         : start / displayLimit + 1
     }
 
+    // finds how many pages there are and reutrns the total
     const calLastPage = () => {
         let offset = start
         let pages = 0
@@ -165,11 +181,13 @@ export default function RegionList ({url, type}) {
         return pages
     }
 
+    // when the current page number input blurs, the value is updated to be the current page
     const blurCheck = e => {
         if (e.target.value == '' || (e.target.value != currentPage))
             setCurrentInputPage(currentPage)
     }
 
+    // checks the input from the user to make sure it is valid
     const inputChecker = e => {
         let potentialVal
         highlighted ? (potentialVal = e.key, setHighlighted(false)) : potentialVal = e.target.value * 10 + (e.key * 1)
@@ -184,6 +202,7 @@ export default function RegionList ({url, type}) {
         : (e.keyCode == 13 && (document.getElementById('currentPageNum').blur(), console.log("same page")))
     }
 
+    // loads a page based on the page number passed to the offset variable
     const pageLoader = offset => {
         if (offset >= 0 && offset <= lastPage) {
             start = offset * displayLimit
@@ -192,6 +211,7 @@ export default function RegionList ({url, type}) {
         }
     }
 
+    // retrieves the highlighted text and checks to ssee if the current page input is highlighted
     const getHighText = e => {
         if (e.target.value == window.getSelection().toString()) {
             setHighlighted(true)

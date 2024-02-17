@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
 
+// layout for the pokemon entries
 export default function PokeEntryLayout() {
     const navigate = useNavigate()
     

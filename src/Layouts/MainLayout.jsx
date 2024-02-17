@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom"
 
+// layout for the overal webpage
 export default function MainLayout() {
     return (
         <>

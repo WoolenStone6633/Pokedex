@@ -4,6 +4,7 @@ import RegGenList from "../Components/RegGenList"
 
 let globGeneration = "1"
 
+// handles the generation information along with the generation nav
 export default function Generation () {
     const generations = useLoaderData().results
     const url = 'https://pokeapi.co/api/v2/generation'

@@ -1,7 +1,7 @@
 import { NavLink, Link, Outlet } from "react-router-dom"
 
+// layout for the pokecards
 export default function PokeListLayout() {
-    let showing = false
 
     //Reloads entire page
     const reset = () => {

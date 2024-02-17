@@ -39,6 +39,7 @@ export default function PokeEntry() {
     )
 }
 
+// gets all the pokemon's information that is needed for the form and variations
 export const pokeLoader = async ({ params }) => {
     const URL = 'https://pokeapi.co/api/v2/pokemon'
     const { pokemon } = params

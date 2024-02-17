@@ -7,6 +7,7 @@ let displayLimit = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
 let currentOffset = 0
 let currentPage = Math.floor(currentOffset / displayLimit) + 1
 
+// displays a list of pokecards and the page nav
 export default function Home () {
     const pokedexEnd = 1025 // (pokemon.count - 297) will need to update this value when more pokemon are added
     const POKEBASEURL = 'https://pokeapi.co/api/v2/pokemon-species'
@@ -31,7 +32,7 @@ export default function Home () {
             .then(data => setPokemon(data))
     }, [url])
 
-    // handles the webpage vertically shrinking and growing
+    // changes the amount of cards on the screen depending on the vertical height of the webpage
     useEffect(() => {
         displayLimit = currentDisLim
         setURL(POKEBASEURL + '?offset=' + currentOffset + '&limit=' + displayLimit)
@@ -39,6 +40,7 @@ export default function Home () {
         setLastPage(calLastPage())
     }, [currentDisLim])
 
+    // monitors the window height and updates display limit depending on the calculation below
     useEffect(() => {
         function handleResize () {
             const cardLim = (Math.floor(window.innerHeight / pokeCardHeight) - 1) * 4
@@ -50,6 +52,7 @@ export default function Home () {
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
+    // controls the functionality of the next button
     const nextBut = () => {
         currentOffset < (pokedexEnd - displayLimit) && (
             currentOffset += displayLimit, 
@@ -59,6 +62,7 @@ export default function Home () {
         setCurrentInputPage(currentPage)
     }
 
+    // controls the functionality of the back button
     const prevBut = () => {
         currentOffset < displayLimit && currentOffset > 0 ? (
             currentOffset = 0,
@@ -71,12 +75,14 @@ export default function Home () {
         setCurrentInputPage(currentPage)
     }
 
+    // calculates the current page the suer is on
     const calCurrentPage = () => {
         return currentOffset == 0 ? 1 
         : ((currentOffset / displayLimit) % 1 != 0) ? Math.ceil(currentOffset / displayLimit) + 1
         : currentOffset / displayLimit + 1
     }
 
+    // finds how many pages there are and reutrns the total
     const calLastPage = () => {
         let offset = currentOffset
         let pages = 0
@@ -92,11 +98,13 @@ export default function Home () {
         return pages
     }
 
+    // when the current page number input blurs, the value is updated to be the current page
     const blurCheck = e => {
         if (e.target.value == '' || (e.target.value != currentPage))
             setCurrentInputPage(currentPage)
     }
 
+    // checks the input from the user to make sure it is valid
     const inputChecker = e => {
         let potentialVal
         highlighted ? (potentialVal = e.key, setHighlighted(false)) : potentialVal = e.target.value * 10 + (e.key * 1)
@@ -111,6 +119,7 @@ export default function Home () {
         : (e.keyCode == 13 && (document.getElementById('currentPageNum').blur(), console.log("same page")))
     }
 
+    // loads a page based on the page number passed to the offset variable
     const pageLoader = offset => {
         if (offset >= 0 && offset <= lastPage) {
             currentOffset = offset * displayLimit
@@ -118,6 +127,7 @@ export default function Home () {
         }
     }
 
+    // retrieves the highlighted text and checks to ssee if the current page input is highlighted
     const getHighText = e => {
         if (e.target.value == window.getSelection().toString()) {
             setHighlighted(true)
