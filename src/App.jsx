@@ -16,11 +16,11 @@ const router = createBrowserRouter (
     <Route path="/Pokedex" element={<MainLayout/>}>
       <Route element={<PokeListLayout/>}>
         <Route index element={<Home/>}/>
-        <Route path="region" element={<Region/>} loader={regionLoader}/>
-        <Route path="generation" element={<Generation/>} loader={generationLoader}/>
+        <Route path="Region" element={<Region/>} loader={regionLoader}/>
+        <Route path="Generation" element={<Generation/>} loader={generationLoader}/>
       </Route>
     
-      <Route path="/pokeEntry" element={<PokeEntryLayout/>}>
+      <Route path="/PokeEntry" element={<PokeEntryLayout/>}>
         <Route path=":pokemon" element={<PokeEntry/>} loader={pokeLoader}/>
       </Route>
     </Route>

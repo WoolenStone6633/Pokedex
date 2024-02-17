@@ -11,12 +11,12 @@ export default function PokeListLayout() {
     return (
         <>
             <header>
-                <Link to={"/"} className="pokeLink" onClick={reset}>Pokedex</Link>
+                <Link to={"/Pokedex"} className="pokeLink" onClick={reset}>Pokedex</Link>
                 <div>
                     <p>Sort by:</p>
-                    <NavLink to={"/"}><button className="navSortBut" id="allBut">All</button></NavLink>
-                    <NavLink to={"region"}><button className="navSortBut" id="regBut">Region</button></NavLink>
-                    <NavLink to={"generation"}><button className="navSortBut" id="genBut">Generation</button></NavLink>
+                    <NavLink to={"/Pokedex"}><button className="navSortBut" id="allBut">All</button></NavLink>
+                    <NavLink to={"Region"}><button className="navSortBut" id="regBut">Region</button></NavLink>
+                    <NavLink to={"Generation"}><button className="navSortBut" id="genBut">Generation</button></NavLink>
                 </div>
             </header>
             <main>
