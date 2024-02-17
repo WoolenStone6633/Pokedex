@@ -13,14 +13,14 @@ import PokeEntryLayout from "./Layouts/PokeEntryLayout"
 
 const router = createBrowserRouter (
   createRoutesFromElements (
-    <Route path="/Pokedex" element={<MainLayout/>}>
+    <Route path="/Pokedex/" element={<MainLayout/>}>
       <Route element={<PokeListLayout/>}>
         <Route index element={<Home/>}/>
         <Route path="Region" element={<Region/>} loader={regionLoader}/>
         <Route path="Generation" element={<Generation/>} loader={generationLoader}/>
       </Route>
     
-      <Route path="/PokeEntry" element={<PokeEntryLayout/>}>
+      <Route path="PokeEntry" element={<PokeEntryLayout/>}>
         <Route path=":pokemon" element={<PokeEntry/>} loader={pokeLoader}/>
       </Route>
     </Route>
