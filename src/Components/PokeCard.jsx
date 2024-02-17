@@ -4,7 +4,7 @@ import css from "./PokeCard.module.css"
 // takes the pokemon's name and image url and then returns a card displaying the pokemon name and image
 export default function PokeCard({name, pokeNum}) {
     const POKEIMGURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
-    const pokePage = `pokeEntry/${pokeNum}`
+    const pokePage = `PokeEntry/${pokeNum}`
     
     return (
         <Link to={`../${pokePage}`} className={css.pokeCard}>
