@@ -1,0 +1,23 @@
+.basicInfo {
+    display: grid;
+    justify-items: center;
+    gap: .2rem;
+}
+
+.basicInfo p {
+    z-index: 1;
+}
+
+.titlePokemon {
+    transform: scale(2);
+    image-rendering: pixelated;
+    padding: 48px;
+    z-index: 0;
+}
+
+.basicInfo img:not(.titlePokemon) {
+    transform: scale(1.5);
+    image-rendering: pixelated;
+    padding: 24px;
+    z-index: 0;
+}

@@ -4,18 +4,21 @@ import RegGenList from "../Components/RegGenList"
 
 let globRegion = "kanto"
 
+// handles the region information along with the region nav
 export default function Region () {
     const regions = useLoaderData().results
     const url = 'https://pokeapi.co/api/v2/region'
     const [region, setRegion] = useState(globRegion)
     const [pokedexURL, setPokedexURL] = useState(null)
     
+    // gets the data of a specified region and passes it to a function
     useEffect(() => {
         fetch(`${url}/${region}`)
             .then(res => res.json())
             .then(data => getPokedexURL(data))
     }, [region])
 
+    // gets the url for the specifies pokedex region
     const getPokedexURL = reg => {
         setPokedexURL("")
         for (let i = 0; i < reg.pokedexes.length; i++) {

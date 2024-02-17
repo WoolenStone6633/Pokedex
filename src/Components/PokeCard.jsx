@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import css from "./PokeCard.module.css"
 
-//Takes the pokemon's name and image url and then returns a card displaying the pokemon name and image
+// takes the pokemon's name and image url and then returns a card displaying the pokemon name and image
 export default function PokeCard({name, pokeNum}) {
     const POKEIMGURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
     const pokePage = `pokeEntry/${pokeNum}`

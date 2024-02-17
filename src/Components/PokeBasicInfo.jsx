@@ -1,11 +1,19 @@
+import css from "./PokeBasicInfo.module.css"
+
 // displays the basic information of a pokemon including an image, its name and typing
-export default function PokeBasicInfo({imgURL, name, typings = null}) {
+export default function PokeBasicInfo({imgURL, name, typingN = '', typings = null}) {
     return (
-        <div>
-            <img src={imgURL}></img>
-            <p className="pokeName">{name.replaceAll('-', ' ')}</p>
+        <div className={css.basicInfo}>
+            {name.substring(0, 4) == 'Name' ? (<>
+                <img className={css.titlePokemon} src={imgURL}></img>
+                <p><strong>Name: </strong> {name.substring(5).replaceAll('-', ' ')}</p>
+            </>) : (<>
+                <img src={imgURL}></img>
+                <p>{name.replaceAll('-', ' ')}</p>
+            </>)}
             {typings != null && 
-                <p>Typing: {typings[0].type.name}{typings.length > 1 && (', ' + typings[1].type.name)}</p>}
+                <p><strong>{typingN}</strong>{typings[0].type.name}{typings.length > 1 && (', ' + typings[1].type.name)}</p>
+            }
         </div>
     )
 }
