@@ -13,7 +13,7 @@ import PokeEntryLayout from "./Layouts/PokeEntryLayout"
 
 const router = createBrowserRouter (
   createRoutesFromElements (
-    <Route path="/" element={<MainLayout/>}>
+    <Route path="/Pokedex/" element={<MainLayout/>}>
       <Route element={<PokeListLayout/>}>
         <Route index element={<Home/>}/>
         <Route path="region" element={<Region/>} loader={regionLoader}/>
