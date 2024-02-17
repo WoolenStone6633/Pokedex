@@ -1,6 +1,7 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom"
 
 // Pages
+import Welcome from "./Pages/Welcome"
 import Home from "./Pages/Home"
 import Region, {regionLoader} from "./Pages/Region"
 import Generation, {generationLoader} from "./Pages/Generation"
@@ -14,6 +15,7 @@ import PokeEntryLayout from "./Layouts/PokeEntryLayout"
 const router = createBrowserRouter (
   createRoutesFromElements (
     <Route path="Pokedex" element={<MainLayout/>}>
+      <Route index element={<Welcome/>}/>
       <Route element={<PokeListLayout/>}>
         <Route path="All" element={<Home/>}/>
         <Route path="Region" element={<Region/>} loader={regionLoader}/>
