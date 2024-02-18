@@ -13,14 +13,14 @@ body {
     height: 100vh;
     overflow-x: hidden;
     padding-top: 2.3rem;
-    padding-inline: 2vw;
+    padding-right: 2vw;
 }
 
 /* welcome page */
 .pokedex-cover {
     display: grid;
     grid-template-columns: 50vw 50vw;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -32,6 +32,8 @@ body {
     border-right: 3px solid black;
     width: 50vw;
     background-color: red;
+
+    transition: transform 0.3s;
 }
 
 .right-door {
@@ -53,6 +55,8 @@ body {
     border-radius: 50%;
     width: 120px;
     background-color: black;
+
+    transition: transform 0.3s;
 }
 
 .inner-circle {
@@ -118,7 +122,7 @@ header {
     border-bottom-color: black;
     border-bottom-width: 2px;
     top: 0;
-    width: 96vw;
+    width: 98vw;
     font-size: 1.7rem;
     z-index: 999;
 }
@@ -130,7 +134,7 @@ header {
     border-right-style: solid;
     border-right-color: black;
     border-right-width: 2px;
-    padding: .17em .3em .10em .3em;
+    padding: .17em .3em .10em 2.2vw;
     font-size: .9em;
     font-family: Arial, sans-serif;
     text-decoration: none;
@@ -148,8 +152,8 @@ header p {
     border-left-style: solid;
     border-left-color: black;
     border-left-width: 2px;
-    padding: .2em;
-    padding-inline: .3em;
+    padding-block: .21em;
+    padding-inline: .32em;
     font-size: .8em;
     font-family: Arial, sans-serif;
 }
@@ -185,8 +189,13 @@ main {
 div nav {
     background-color: rgb(252, 244, 241);
     position: sticky;
+    padding-left: 2vw;
     top: 2.3rem;
     max-height: 97vh;
+}
+
+body:has(div nav:hover) .left-door, body:has(div nav:hover) .outer-circle {
+    transform: translatex(-50px);
 }
 
 .nav-list {
@@ -204,10 +213,6 @@ div nav {
     padding: 0.2rem 1rem 0.2rem 1rem;
     margin-left: 0.3rem;
     border-radius: 8px 0 0 8px;
-}
-
-li:nth-child(10) {
-    margin-top: 6.3rem;
 }
 
 ul .nav-title {
