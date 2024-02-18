@@ -13,6 +13,98 @@ body {
     height: 100vh;
     overflow-x: hidden;
     padding-top: 2.3rem;
+    padding-inline: 2vw;
+}
+
+/* welcome page */
+.pokedex-cover {
+    display: grid;
+    grid-template-columns: 50vw 50vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+}
+
+.left-door {
+    border-right: 3px solid black;
+    width: 50vw;
+    background-color: red;
+}
+
+.right-door {
+    justify-self: right;
+    border-left: 3px solid black;
+    width: 50vw;
+    background-color: red;
+}
+
+.outer-circle {
+    display: flex;
+    position: absolute;
+    left: -60px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto auto auto 50vw;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    width: 120px;
+    background-color: black;
+}
+
+.inner-circle {
+    display: block;
+    position: relative;
+    aspect-ratio: 1;
+    margin: auto;
+    border-radius: 50%;
+    border: none;
+    width: 80%;
+    background-color: limegreen;
+    cursor: pointer;
+
+    transition: all 0.6s;
+}
+
+@keyframes pulse {
+    50% {
+        background-color: rgb(77, 221, 77);
+    }
+}
+
+.inner-circle-hover:hover {
+    animation: pulse 0.6s ease-in-out infinite;
+}
+
+@keyframes open {
+    42% {
+        width: 46vw;
+    }
+
+    100% {
+        width: 2vw;
+    }
+}
+
+.open-pokedex {
+    animation: open 2.7s forwards 0.2s;
+}
+
+@keyframes openButton {
+    42% {
+        margin-left: 46vw;
+    }
+
+    100% {
+        margin-left: 2vw;
+    }
+}
+
+.open-pokedex-button {
+    animation: openButton 2.7s forwards 0.2s;
 }
 
 /* main header */
@@ -26,7 +118,7 @@ header {
     border-bottom-color: black;
     border-bottom-width: 2px;
     top: 0;
-    width: 100%;
+    width: 96vw;
     font-size: 1.7rem;
     z-index: 999;
 }
@@ -99,7 +191,7 @@ div nav {
 
 .nav-list {
     display: grid;
-    gap: 1.7rem;
+    gap: 1.55rem;
     padding-block: 1rem;
     font-size: 1.7em;
     font-family: Arial, sans-serif;
@@ -112,6 +204,10 @@ div nav {
     padding: 0.2rem 1rem 0.2rem 1rem;
     margin-left: 0.3rem;
     border-radius: 8px 0 0 8px;
+}
+
+li:nth-child(10) {
+    margin-top: 6.3rem;
 }
 
 ul .nav-title {

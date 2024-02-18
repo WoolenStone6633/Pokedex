@@ -11,7 +11,7 @@ export default function PokeListLayout() {
     return (
         <>
             <header>
-                <Link to={"All"} className="pokeLink" onClick={reset}>Pokedex</Link>
+                <Link to={"/Pokedex"} className="pokeLink" onClick={reset}>Pokedex</Link>
                 <div>
                     <p>Sort by:</p>
                     <NavLink to={"All"}><button className="navSortBut" id="allBut">All</button></NavLink>

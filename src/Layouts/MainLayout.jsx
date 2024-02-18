@@ -1,9 +1,11 @@
 import { Outlet } from "react-router-dom"
+import Welcome from '../Pages/Welcome'
 
 // layout for the overal webpage
 export default function MainLayout() {
     return (
         <>
+            <Welcome/>
             <Outlet/>
             <footer>
                 <p>Powered by&nbsp;

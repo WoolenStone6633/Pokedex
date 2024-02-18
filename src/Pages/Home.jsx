@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import PokeCard from "../Components/PokeCard"
+import Welcome from "./Welcome"
 
 // keep track of the page's state when moving form all to region to generation sorts
 const pokeCardHeight = 131
