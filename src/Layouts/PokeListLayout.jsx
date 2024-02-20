@@ -1,4 +1,5 @@
 import { NavLink, Link, Outlet } from "react-router-dom"
+import SearchBar from "../Components/SearchBar"
 
 // layout for the pokecards
 export default function PokeListLayout() {
@@ -12,12 +13,13 @@ export default function PokeListLayout() {
         <>
             <header>
                 <Link to={"/Pokedex"} className="pokeLink" onClick={reset}>Pokedex</Link>
-                <div>
+                <SearchBar/>
+                <nav>
                     <p>Sort by:</p>
                     <NavLink to={"All"}><button className="navSortBut" id="allBut">All</button></NavLink>
                     <NavLink to={"Region"}><button className="navSortBut" id="regBut">Region</button></NavLink>
                     <NavLink to={"Generation"}><button className="navSortBut" id="genBut">Generation</button></NavLink>
-                </div>
+                </nav>
             </header>
             <main>
                 <Outlet/>

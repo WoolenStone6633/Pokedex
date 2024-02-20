@@ -140,7 +140,7 @@ header {
     text-decoration: none;
 }
 
-header div {
+header nav {
     display:inline;
     position: relative;    
 }
@@ -186,7 +186,7 @@ main {
 }
 
 /* left nav on reg and gen */
-div nav {
+.reg-gen-nav {
     background-color: rgb(252, 244, 241);
     position: sticky;
     padding-left: 2vw;
@@ -194,7 +194,7 @@ div nav {
     max-height: 97vh;
 }
 
-body:has(div nav:hover) .left-door, body:has(div nav:hover) .outer-circle {
+body:has(.reg-gen-nav:hover) .left-door, body:has(.reg-gen-nav:hover) .outer-circle {
     transform: translatex(-50px);
 }
 

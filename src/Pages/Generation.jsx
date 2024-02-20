@@ -12,7 +12,7 @@ export default function Generation () {
     
     return (
         <div className="reg-gen-wrapper">
-            <nav>
+            <nav className="reg-gen-nav">
                 <ul class='nav-list'>
                     <li className="nav-title">Generations: </li>
                     {generations.map(generation => {
