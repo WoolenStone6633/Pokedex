@@ -2,6 +2,7 @@ import { useLoaderData } from "react-router-dom"
 import PokeBasicInfo from "../Components/PokeBasicInfo"
 import PokeForm from "../Components/PokeForm"
 import PokeVar from "../Components/PokeVar"
+import SearchBar from "../Components/SearchBar"
 
 // takes pokemon api URL and returns an organized structure of the pokemons information
 export default function PokeEntry() {
@@ -33,6 +34,7 @@ export default function PokeEntry() {
                         {(pokeSpecies && pokeSpecies.varieties.length > 1) ? 
                             pokeSpecies.varieties.map(varient => <PokeVar key={varient.pokemon.name} origName={pokeInfo.name} varientURL={varient.pokemon.url}/>) : " None"}
                     </section>
+                    <SearchBar/>
                 </div>
             </div>
         </div>
