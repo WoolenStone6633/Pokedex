@@ -113,9 +113,8 @@ body {
 
 /* main header */
 header {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     position: fixed;
     background-color: red;
     border-bottom-style: solid;
@@ -126,7 +125,6 @@ header {
     font-size: 1.7rem;
     z-index: 999;
 }
-
 
 .pokeLink {
     color: black;
@@ -140,18 +138,70 @@ header {
     text-decoration: none;
 }
 
-header nav {
-    display:inline;
-    position: relative;    
+.search-wrapper {
+    justify-self: end;
+    margin-right: -2px;
 }
 
-header p {
+.search-results {
+    display: grid;
+    position: absolute;
+    border-block: 2px solid black;
+    border-left: 2px solid black;
+    border-radius: 12px;
+    width: 6.2em;
+    background: rgb(221, 221, 221);
+}
+
+.search-results a {
+    border-bottom: 2px solid black;
+    border-right: 0px solid;
+    text-decoration: none;
+    color: black;
+}
+
+.search-results-overflow {
+    border-radius: 0 0 0 12px;
+    width: 6.8em;
+    height: 18.4em;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.search-results a:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+.search-results-overflow a:first-child {
+    border-radius: 12px 0 0 0;
+}
+
+.search-results a:last-child {
+    border: 0px;
+    border-right: 0px solid;
+    border-radius:  0 0 12px 12px;
+}
+
+.search-results-overflow a:last-child {
+    border: 0px;
+    border-right: 0px solid;
+    border-radius: 0 0 0 12px;
+}
+
+header nav {
+    display:inline;
+    position: relative;
+    justify-self: end;
+    width: 12.8em;
+}
+
+header nav p {
     display: inline-block;
     color: black;
-    background-color: lightgray;
+    background-color: rgb(197, 197, 197);
     border-left-style: solid;
     border-left-color: black;
-    border-left-width: 2px;
+    border-left-width: 0.1em;
     padding-block: .21em;
     padding-inline: .32em;
     font-size: .8em;
@@ -161,8 +211,8 @@ header p {
 .navSortBut {
     border-style: none;
     background-color: lightgray;
-    border-inline-style: solid;
-    border-inline-width: 2px;
+    border-left-style: solid;
+    border-left-width: 0.13em;
     padding: .4em .7em .3em .7em;
     margin-right: -.1em;
     font-size: .7em;
@@ -243,8 +293,9 @@ ul .nav-title {
 .cards {
     grid-area: 1/2/1/2;
     display: grid;
-    grid-template-columns: repeat(auto-fit, 125px);
-    grid-template-rows: repeat(auto-fit, 121px);
+    /* grid-template-columns: repeat(auto-fit, 125px); */
+    grid-template-columns: repeat(auto-fit, 7.83em);
+    grid-template-rows: repeat(auto-fit, 7.75);
     grid-gap: .7em .8em;
     justify-content: center;
 }

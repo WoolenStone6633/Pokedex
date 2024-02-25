@@ -1,0 +1,25 @@
+.dropElement {
+    display: flex;
+    align-items: center;
+    border-right: 2px black;
+    border-right-style: inherit;
+    border-radius: inherit;
+    height: 1.6em;
+}
+
+.dropElement img {
+    padding-block: 3px;
+    padding-left: 5px;
+    height: 100%;
+}
+
+.dropElement p {
+    padding-inline: 10px 5px;
+    font-size: medium;
+    font-weight: 600;
+    font-family: Arial, sans-serif;
+}
+
+.dropElement p::first-letter {
+    text-transform: capitalize;
+}

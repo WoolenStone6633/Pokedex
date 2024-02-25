@@ -1,7 +1,6 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom"
 
 // Pages
-import Welcome from "./Pages/Welcome"
 import Home from "./Pages/Home"
 import Region, {regionLoader} from "./Pages/Region"
 import Generation, {generationLoader} from "./Pages/Generation"
